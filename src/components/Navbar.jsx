@@ -21,7 +21,7 @@ function Navbar() {
           className="fixed inset-0 bg-black/5 z-40"
         />
       )}
-      <nav className="flex justify-between items-center gap-3">
+      <nav className="flex justify-between items-center gap-3 sm:mb-5">
         <div className="flex sm:gap-8 items-center">
           <NavLink to="/" className="font-extrabold text-xl">
             GelanaTech
