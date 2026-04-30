@@ -1,5 +1,7 @@
 import Categories from "../components/Categories";
+import Cta from "../components/Cta";
 import FeaturedProducts from "../components/FeaturedProducts";
+import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import WhyUs from "../components/WhyUs";
 
@@ -10,6 +12,7 @@ function Home() {
       <Categories />
       <FeaturedProducts />
       <WhyUs />
+      <Cta />
     </div>
   );
 }
