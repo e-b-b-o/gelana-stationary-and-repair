@@ -2,11 +2,13 @@ import Button from "./Button";
 
 function Categories() {
   return (
-    <section className="text-center  max-w-6xl mx-auto px-4 py-16 space-y-3">
-      <h2 className="font-bold text-2xl md:text-3xl">Explore Our Services</h2>
-      <p className="text-md text-muted">
-        Explore our range of products and services tailored to your needs.
-      </p>
+    <section className="max-w-6xl mx-auto px-4 py-16 space-y-8 text-center">
+      <div>
+        <h2 className="font-bold text-2xl md:text-3xl">Explore Our Services</h2>
+        <p className="text-md text-muted">
+          Explore our range of products and services tailored to your needs.
+        </p>
+      </div>
       <div className="grid grid-cols-1  md:grid-cols-3 gap-6">
         <div className="bg-primary/5 p-6 shadow-sm hover:shadow-lg transition-all duration-300 space-y-3 hover:-translate-y-1">
           <h3 className="text-lg md:text-xl font-semibold">Stationery</h3>
