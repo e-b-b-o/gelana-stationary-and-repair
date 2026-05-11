@@ -6,7 +6,7 @@ function FeaturedProducts() {
   const limitedProducts = featuredProducts.slice(0, 4);
 
   return (
-    <section className="space-y-8 max-w-6xl mx-auto py-16">
+    <section className="space-y-6 md:space-y-8 max-w-6xl mx-auto py-16">
       <div className="text-center">
         <h2 className="text-2xl sm:text-3xl font-bold">Featured Products</h2>
         <p className="text-sm md:text-base text-muted ">

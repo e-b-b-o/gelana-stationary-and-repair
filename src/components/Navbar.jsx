@@ -13,6 +13,7 @@ import { useState } from "react";
 function Navbar() {
   const isLogin = false;
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       {isOpen && (
@@ -21,12 +22,16 @@ function Navbar() {
           className="fixed inset-0 bg-black/5 z-40"
         />
       )}
-      <nav className="flex justify-between items-center gap-3 sm:mb-5">
-        <div className="flex sm:gap-8 items-center">
-          <NavLink to="/" className="font-extrabold text-xl">
+
+      <nav className="flex justify-between items-center gap-3 overflow-hidden sm:mb-3 max-w-7xl mx-auto px-4 pt-2 sm:pt-3 ">
+        {/* LEFT SIDE */}
+        <div className="flex items-center gap-4 sm:gap-8 min-w-0">
+          <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
             GelanaTech
           </NavLink>
-          <div className="space-x-5 sm:block hidden">
+
+          {/* Desktop links */}
+          <div className="hidden sm:flex gap-5 whitespace-nowrap text-primary/70">
             <NavLink to="/" className="hover:opacity-70">
               Home
             </NavLink>
@@ -39,27 +44,25 @@ function Navbar() {
           </div>
         </div>
 
-        <div className="flex space-x-2">
-          <span className="hidden sm:block">
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-2 min-w-0">
+          {/* Input (only md and above) */}
+          <div className="hidden md:block min-w-0">
             <Input />
-          </span>
-          {isLogin ? (
-            <div>
-              <NavLink to="/profile">
-                <UserIcon className="w-6" />
-              </NavLink>
-            </div>
-          ) : (
-            <div>
-              <NavLink to="/login">
-                <UserIcon className="w-6" />
-              </NavLink>
-            </div>
-          )}
-          <NavLink to="/cart">
-            <ShoppingCartIcon className="w-6" />
+          </div>
+
+          {/* User */}
+          <NavLink to={isLogin ? "/profile" : "/login"}>
+            <UserIcon className="w-6 shrink-0" />
           </NavLink>
-          <div className="sm:hidden">
+
+          {/* Cart */}
+          <NavLink to="/cart">
+            <ShoppingCartIcon className="w-6 shrink-0" />
+          </NavLink>
+
+          {/* Hamburger */}
+          <div className="sm:hidden shrink-0">
             {isOpen ? (
               <Button onClick={() => setIsOpen(false)}>
                 <XMarkIcon className="w-6" />
@@ -72,6 +75,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
+
       <MobileMenu setIsOpen={setIsOpen} isOpen={isOpen} />
     </>
   );

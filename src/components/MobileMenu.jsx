@@ -4,7 +4,7 @@ import Input from "./Input";
 function MobileMenu({ setIsOpen, isOpen }) {
   return (
     <aside
-      className={`sm:hidden flex flex-col fixed top-10 right-0 h-full w-64 bg-background shadow-lg transform transition-transform duration-300 z-50 p-2  ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+      className={`sm:hidden flex flex-col fixed top-11.5 right-0 h-full w-64 bg-white/40 shadow-lg transform transition-transform duration-300 z-50 p-2  ${isOpen ? "translate-x-0" : "translate-x-full"}`}
     >
       <Input />
       <NavLink

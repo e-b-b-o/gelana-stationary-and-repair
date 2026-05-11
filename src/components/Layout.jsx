@@ -5,13 +5,13 @@ import Footer from "./Footer";
 function Layout() {
   return (
     <>
-      <div className="min-h-screen bg-background text-primary font-sans px-4 py-2 md:px-15 md:py-8">
+      <div className="min-h-screen bg-background text-primary font-sans ">
         <Navbar />
         <main>
           <Outlet />
         </main>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
