@@ -26,7 +26,7 @@ function Navbar() {
       )}
 
       <nav
-        className={`w-full z-50 px-6 py-6 flex justify-between ${isHome ? "absolute top-0 left-0 bg-transparent text-white" : "sticky top-0 bg-white shadow-sm text-black"}`}
+        className={`w-full z-50 sm:px-20 sm:py-8 px-6 py-6 flex justify-between ${isHome ? "absolute top-0 left-0 bg-transparent text-white" : "sticky top-0 bg-white shadow-sm text-black"}`}
       >
         {/* LEFT SIDE */}
         <div className="flex items-center gap-4 sm:gap-8 min-w-0">
@@ -67,15 +67,9 @@ function Navbar() {
 
           {/* Hamburger */}
           <div className="sm:hidden shrink-0">
-            {isOpen ? (
-              <Button onClick={() => setIsOpen(false)}>
-                <XMarkIcon className="w-6" />
-              </Button>
-            ) : (
-              <Button onClick={() => setIsOpen(true)}>
-                <Bars3Icon className="w-6" />
-              </Button>
-            )}
+            <Button onClick={() => setIsOpen(true)}>
+              <Bars3Icon className="w-6" />
+            </Button>
           </div>
         </div>
       </nav>

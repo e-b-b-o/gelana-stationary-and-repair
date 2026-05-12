@@ -7,7 +7,7 @@ function Button({ children, onClick, variant, size, to }) {
   const variants = {
     primary: "bg-primary text-white hover:opacity-80",
     outline:
-      "bodrer-primary text-primary  border  hover:bg-primary hover:text-white border-2 hover:border-primary",
+      "bodrer-primary text-primary  border  hover:bg-primary hover:text-white border-2 hover:border-primary ",
     ghost: "text-primary hover:bg-gray-100",
   };
   const sizes = {
