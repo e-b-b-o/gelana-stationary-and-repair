@@ -2,7 +2,7 @@ import Button from "./Button";
 
 function Hero() {
   return (
-    <header className="relative h-[94vh] flex items-center md:p-15 mt-2 sm:mt-0 mb-16">
+    <header className="relative h-screen flex items-center md:p-15  mb-16">
       <div
         className="absolute inset-0 bg-cover bg-center items-center "
         style={{

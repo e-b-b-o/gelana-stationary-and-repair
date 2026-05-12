@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Input from "./Input";
 import {
   ShoppingCartIcon,
@@ -12,7 +12,9 @@ import { useState } from "react";
 
 function Navbar() {
   const isLogin = false;
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const isHome = location.pathname === "/";
 
   return (
     <>
@@ -23,7 +25,9 @@ function Navbar() {
         />
       )}
 
-      <nav className="flex justify-between items-center gap-3 overflow-hidden sm:mb-3 max-w-7xl mx-auto px-4 pt-2 sm:pt-3 ">
+      <nav
+        className={`w-full z-50 px-6 py-6 flex justify-between ${isHome ? "absolute top-0 left-0 bg-transparent text-white" : "sticky top-0 bg-white shadow-sm text-black"}`}
+      >
         {/* LEFT SIDE */}
         <div className="flex items-center gap-4 sm:gap-8 min-w-0">
           <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
@@ -31,7 +35,7 @@ function Navbar() {
           </NavLink>
 
           {/* Desktop links */}
-          <div className="hidden sm:flex gap-5 whitespace-nowrap text-primary/70">
+          <div className="hidden sm:flex gap-5 whitespace-nowrap">
             <NavLink to="/" className="hover:opacity-70">
               Home
             </NavLink>
