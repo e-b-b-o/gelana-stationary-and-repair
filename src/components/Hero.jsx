@@ -23,7 +23,7 @@ function Hero() {
             <Button variant="primary" size="md">
               Shop Products
             </Button>
-            <Button variant="outline" size="md">
+            <Button variant="outlineHero" size="md">
               Book Repair
             </Button>
           </div>
