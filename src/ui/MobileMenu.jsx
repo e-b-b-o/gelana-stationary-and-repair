@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import Input from "./Input";
-import Button from "./Button";
+import Button from "../ui/Button";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 
 function MobileMenu({ setIsOpen, isOpen }) {
@@ -14,27 +14,29 @@ function MobileMenu({ setIsOpen, isOpen }) {
           <XMarkIcon className="w-6" />
         </Button>
       </div>
-      <NavLink
-        to="/"
-        onClick={() => setIsOpen(false)}
-        className="hover:opacity-70"
-      >
-        Home
-      </NavLink>
-      <NavLink
-        to="/products"
-        onClick={() => setIsOpen(false)}
-        className="hover:opacity-80"
-      >
-        Products
-      </NavLink>
-      <NavLink
-        to="/booking"
-        onClick={() => setIsOpen(false)}
-        className="hover:opacity-80"
-      >
-        Booking
-      </NavLink>
+      <div className="pl-4 flex flex-col">
+        <NavLink
+          to="/"
+          onClick={() => setIsOpen(false)}
+          className="hover:opacity-70"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/products"
+          onClick={() => setIsOpen(false)}
+          className="hover:opacity-80"
+        >
+          Products
+        </NavLink>
+        <NavLink
+          to="/booking"
+          onClick={() => setIsOpen(false)}
+          className="hover:opacity-80"
+        >
+          Booking
+        </NavLink>
+      </div>
     </aside>
   );
 }

@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import Home from "../pages/Home";
-import Products from "../pages/Products";
-import Booking from "../pages/Booking";
-import Cart from "../pages/Cart";
-import Profile from "../pages/Profile";
-import PageNotFound from "../pages/PageNotFound";
-import Layout from "../components/Layout";
-import Login from "../pages/Login";
+import Home from "../features/home/Home";
+import Products from "../features/products/Products";
+import Booking from "../features/booking/Booking";
+import Cart from "../features/cart/Cart";
+import Profile from "../features/user/Profile";
+import PageNotFound from "../ui/PageNotFound";
+import Layout from "../ui/Layout";
+import Login from "../features/auth/Login";
 
 export const router = createBrowserRouter([
   {

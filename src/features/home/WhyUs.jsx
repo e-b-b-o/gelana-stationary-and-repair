@@ -19,25 +19,25 @@ function WhyUs() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <FeatureCard
-          icon={<ShieldCheckIcon className="w-14 h-14 text-primary" />}
+          icon={<ShieldCheckIcon className="w-14 h-14 text-green-700" />}
           title="Quality Products"
           description="Carefully selected stationery and laptop parts you can rely on."
         />
 
         <FeatureCard
-          icon={<WrenchScrewdriverIcon className="w-14 h-14 text-primary" />}
+          icon={<WrenchScrewdriverIcon className="w-14 h-14 text-blue-700" />}
           title="Expert Repair"
           description="Handled by skilled technicians with real experience."
         />
 
         <FeatureCard
-          icon={<ClockIcon className="w-14 h-14 text-primary" />}
+          icon={<ClockIcon className="w-14 h-14 text-pink-700" />}
           title="Fast Service"
           description="Quick turnaround for both purchases and repairs."
         />
 
         <FeatureCard
-          icon={<CurrencyDollarIcon className="w-14 h-14 text-primary" />}
+          icon={<CurrencyDollarIcon className="w-14 h-14 text-yellow-500" />}
           title="Affordable Prices"
           description="Get the best value without compromising quality."
         />

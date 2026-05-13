@@ -1,5 +1,5 @@
-import Button from "./Button";
-import { formatCurrency } from "../utils/formatCurrency";
+import Button from "../../ui/Button";
+import { formatCurrency } from "../../utils/formatCurrency";
 import { StarIcon } from "@heroicons/react/16/solid";
 
 function ProductCard({ product }) {

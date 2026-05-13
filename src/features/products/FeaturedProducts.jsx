@@ -1,5 +1,5 @@
-import products from "../data/products";
 import ProductCard from "./ProductCard";
+import products from "../.././data/products";
 
 function FeaturedProducts() {
   const featuredProducts = products.filter((product) => product.featured);
