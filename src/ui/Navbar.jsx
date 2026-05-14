@@ -33,19 +33,19 @@ function Navbar() {
           <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
             GelanaTech
           </NavLink>
+        </div>
 
-          {/* Desktop links */}
-          <div className="hidden sm:flex gap-5 whitespace-nowrap">
-            <NavLink to="/" className="hover:opacity-70">
-              Home
-            </NavLink>
-            <NavLink to="/products" className="hover:opacity-80">
-              Products
-            </NavLink>
-            <NavLink to="/booking" className="hover:opacity-80">
-              Booking
-            </NavLink>
-          </div>
+        {/* Desktop links */}
+        <div className="hidden sm:flex gap-5 whitespace-nowrap">
+          <NavLink to="/" className="hover:opacity-70">
+            Home
+          </NavLink>
+          <NavLink to="/products" className="hover:opacity-80">
+            Products
+          </NavLink>
+          <NavLink to="/booking" className="hover:opacity-80">
+            Booking
+          </NavLink>
         </div>
 
         {/* RIGHT SIDE */}
