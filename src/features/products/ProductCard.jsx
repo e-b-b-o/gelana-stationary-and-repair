@@ -4,7 +4,7 @@ import { StarIcon } from "@heroicons/react/16/solid";
 
 function ProductCard({ product }) {
   return (
-    <div className="space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div className="space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white">
       <img
         src={product.image}
         alt="product image"

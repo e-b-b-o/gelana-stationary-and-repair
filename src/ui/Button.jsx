@@ -13,6 +13,7 @@ function Button({ children, onClick, variant, size, to }) {
       "border border-white text-white backdrop-blur-sm bg-white/5 shadow-[0_0_20px_rgba(255,255,255,0.12)] hover:bg-white hover:text-primary ",
   };
   const sizes = {
+    xs: "px-2 py-0.5 text-xs",
     sm: "px-3 py-1 text-sm",
     md: "px-4 py-2 text-sm",
     lg: "px-6 py-3 text-base",

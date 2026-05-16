@@ -14,15 +14,15 @@ function Products() {
           Find the best stationery and laptop parts
         </p>
       </div>
-      <div className="flex justify-between max-w-4xl mx-auto flex-col md:flex-row gap-3">
+      <div className="flex sm:justify-between items-center max-w-6xl mx-auto flex-col md:flex-row gap-3">
         <div className="flex flex-wrap gap-3 ">
-          <Button variant="ghost" size="sm">
+          <Button variant="outline" size="xs">
             ALL
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="outline" size="xs">
             STATIONERY
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button variant="outline" size="xs">
             LAPTOP PARTS
           </Button>
         </div>
