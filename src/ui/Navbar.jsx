@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import Input from "./Input";
 import {
   ShoppingCartIcon,
@@ -11,7 +11,6 @@ import MobileMenu from "./MobileMenu";
 import { useState } from "react";
 
 function Navbar() {
-  const isLogin = false;
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const isHome = location.pathname === "/";
@@ -49,27 +48,28 @@ function Navbar() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex items-center gap-2 min-w-0">
-          {/* Input (only md and above) */}
-          <div className="hidden md:block min-w-0">
-            <Input />
-          </div>
-
-          {/* User */}
-          <NavLink to={isLogin ? "/profile" : "/login"}>
-            <UserIcon className="w-6 shrink-0" />
-          </NavLink>
-
+        <div className="flex items-center gap-4 min-w-0">
           {/* Cart */}
+
           <NavLink to="/cart">
-            <ShoppingCartIcon className="w-6 shrink-0" />
+            <ShoppingCartIcon className="w-6 shrink-0 inline-block" />
+            <span>(0)</span>
           </NavLink>
+
+          <div className="hidden sm:block space-x-2">
+            <Button to="/login" size="sm">
+              Sign up
+            </Button>
+            <Button to="/login" variant="primary" size="sm">
+              Log in
+            </Button>
+          </div>
 
           {/* Hamburger */}
           <div className="sm:hidden shrink-0">
-            <Button onClick={() => setIsOpen(true)}>
+            <NavLink onClick={() => setIsOpen(true)}>
               <Bars3Icon className="w-6" />
-            </Button>
+            </NavLink>
           </div>
         </div>
       </nav>
