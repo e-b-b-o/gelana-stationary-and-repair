@@ -14,7 +14,7 @@ function Products() {
           Find the best stationery and laptop parts
         </p>
       </div>
-      <div className="flex sm:justify-between items-center max-w-6xl mx-auto flex-col md:flex-row gap-3">
+      <div className="flex sm:justify-between items-center  mx-auto flex-col md:flex-row gap-3 md:px-15 lg:px-0">
         <div className="flex flex-wrap gap-3 ">
           <Button variant="outline" size="xs">
             ALL
@@ -28,7 +28,7 @@ function Products() {
         </div>
         <Input />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:px-15 lg:px-0">
         {products.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
