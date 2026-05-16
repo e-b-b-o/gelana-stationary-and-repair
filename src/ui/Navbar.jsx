@@ -58,10 +58,10 @@ function Navbar() {
 
           <div className="hidden sm:block space-x-2">
             <Button to="/login" size="sm">
-              Sign up
+              Log in
             </Button>
             <Button to="/login" variant="primary" size="sm">
-              Log in
+              Sign up
             </Button>
           </div>
 
