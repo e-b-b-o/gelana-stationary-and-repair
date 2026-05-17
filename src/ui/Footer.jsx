@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
-    <section className="bg-primary/10 p-6 md:px-20 py-16 space-y-3 ">
+    <footer className="bg-primary/10 p-6 md:px-20 py-16 space-y-3 ">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  items-start md:items-center">
         <div className="p-6">
           <NavLink to="/" className="font-extrabold text-xl">
@@ -56,7 +56,7 @@ function Footer() {
       <div className="text-muted text-sm md:text-base border-t pt-6 text-center">
         © 2026 GelanaTech. All rights reserved.
       </div>
-    </section>
+    </footer>
   );
 }
 
