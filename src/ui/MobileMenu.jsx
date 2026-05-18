@@ -6,10 +6,10 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 function MobileMenu({ setIsOpen, isOpen }) {
   return (
     <aside
-      className={`sm:hidden flex flex-col fixed top-0 right-0 h-full w-full bg-white shadow-lg transform transition-transform duration-300 z-50  gap-2 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+      className={`sm:hidden flex flex-col fixed top-0 right-0 h-full w-full bg-background shadow-lg transform transition-transform duration-300 z-50  gap-2 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
     >
-      <div className="flex justify-between bg-primary text-white p-6 w-full">
-        <div className="flex items-center gap-4 sm:gap-8 min-w-0">
+      <div className="flex justify-between  bg-white text-primary p-6 w-full">
+        <div className="flex items-center gap-4 sm:gap-8 min-w-0 ">
           <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
             GelanaTech
           </NavLink>
