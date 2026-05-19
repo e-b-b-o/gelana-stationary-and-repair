@@ -1,5 +1,11 @@
+import BookingForm from "./BookingForm";
+
 function Booking() {
-  return <div>Booking</div>;
+  return (
+    <section>
+      <BookingForm />
+    </section>
+  );
 }
 
 export default Booking;
