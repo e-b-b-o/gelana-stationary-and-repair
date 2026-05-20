@@ -2,7 +2,7 @@ import BookingForm from "./BookingForm";
 
 function Booking() {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-12 md:py-20">
+    <section className="max-w-6xl mx-auto px-4 py-12 md:py-20">
       {/* HEADER */}
       <div className="text-center space-y-3 mb-10">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary">
@@ -14,6 +14,7 @@ function Booking() {
           will contact you shortly.
         </p>
       </div>
+
       {/* BOOKING */}
       <BookingForm />
     </section>

@@ -9,7 +9,7 @@ function BookingForm() {
       {/* CONTAINER */}
       <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
         {/* LEFT SIDE */}
-        <div className="bg-white rounded-3xl shadow-sm border border-primary/10 p-6 md:p-8 space-y-8">
+        <div className="bg-white shadow-sm border border-primary/10 p-6 md:p-8 space-y-8">
           {/* PERSONAL INFO */}
           <div className="space-y-5">
             <div>
@@ -59,7 +59,7 @@ function BookingForm() {
                   Laptop Brand
                 </label>
 
-                <select className="w-full h-12 rounded-xl border border-gray-300 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10">
+                <select className="w-full h-12  border border-gray-300 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10">
                   <option>Dell</option>
                   <option>HP</option>
                   <option>Lenovo</option>
@@ -74,7 +74,7 @@ function BookingForm() {
                   Service Type
                 </label>
 
-                <select className="w-full h-12 rounded-xl border border-gray-300 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10">
+                <select className="w-full h-12  border border-gray-300 px-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10">
                   <option>Hardware Repair</option>
                   <option>Software Repair</option>
                   <option>Screen Replacement</option>
@@ -121,7 +121,7 @@ function BookingForm() {
             <textarea
               rows="5"
               placeholder="My laptop is overheating and shutting down after a few minutes..."
-              className="w-full rounded-2xl border border-gray-300 p-4 outline-none resize-none focus:border-primary focus:ring-4 focus:ring-primary/10"
+              className="w-full  border border-gray-300 p-4 outline-none resize-none focus:border-primary focus:ring-4 focus:ring-primary/10"
             />
           </div>
 
@@ -133,7 +133,7 @@ function BookingForm() {
 
         {/* RIGHT SIDE */}
         <div className="hidden lg:block sticky top-24">
-          <div className="bg-white rounded-3xl shadow-sm border border-primary/10 overflow-hidden">
+          <div className="bg-white  shadow-sm border border-primary/10 overflow-hidden">
             <img
               src="/Gemini_Generated_Image_fgzpy2fgzpy2fgzp.png"
               alt="Repair Service"
