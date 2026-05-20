@@ -1,26 +1,41 @@
+// ui/Input.jsx
+
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-function Input({ placeholder, classname, variant, size }) {
-  const base =
-    "w-full outline-0 pl-7 pr-2 py-1 text-sm border border-gray-300 rounded-md";
+function Input({
+  placeholder,
+  className = "",
+  variant = "form",
+  size = "md",
+  type = "text",
+}) {
+  const base = "w-full rounded-xl outline-none transition-all duration-300";
 
   const variants = {
-    primary: "bg-primary text-white hover:opacity-80 border-primary border-2",
     search:
-      "border-primary text-primary  border-2  hover:bg-primary hover:text-white  hover:border-primary ",
+      "border border-primary/20 bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 pl-10 text-primary placeholder:text-gray-400",
+
+    form: "border border-gray-300 bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 px-4 text-primary placeholder:text-gray-400",
   };
+
   const sizes = {
-    xs: "px-2 py-0.5 text-xs",
-    sm: "px-3 py-1 text-sm",
-    md: "px-4 py-2 text-sm",
-    lg: "px-6 py-3 text-base",
+    sm: "h-10 text-sm",
+    md: "h-12 text-sm md:text-base",
+    lg: "h-14 text-base",
   };
+
   return (
-    <input
-      type="text"
-      placeholder={placeholder}
-      className={base + variants[variant] + sizes[size] + classname}
-    />
+    <div className="relative w-full">
+      {variant === "search" && (
+        <MagnifyingGlassIcon className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+      )}
+
+      <input
+        type={type}
+        placeholder={placeholder}
+        className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+      />
+    </div>
   );
 }
 
