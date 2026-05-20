@@ -9,7 +9,7 @@ function Input({
   size = "md",
   type = "text",
 }) {
-  const base = "w-full rounded-xl outline-none transition-all duration-300";
+  const base = "w-full  outline-none transition-all duration-300";
 
   const variants = {
     search:

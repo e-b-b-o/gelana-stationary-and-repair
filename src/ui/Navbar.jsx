@@ -60,7 +60,7 @@ function Navbar() {
             <Button to="/login" size="sm">
               Log in
             </Button>
-            <Button to="/login" variant="primary" size="sm">
+            <Button to="/Signup" variant="primary" size="sm">
               Sign up
             </Button>
           </div>

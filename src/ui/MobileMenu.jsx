@@ -47,7 +47,7 @@ function MobileMenu({ setIsOpen, isOpen }) {
           Log in
         </Button>
         OR
-        <Button to="/login" variant="primary" size="md">
+        <Button to="/Signup" variant="primary" size="md">
           Sign up
         </Button>
       </div>

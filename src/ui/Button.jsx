@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function Button({ children, onClick, variant, size, to }) {
+function Button({ children, onClick, variant, size, to, className }) {
   const base =
     "inline-flex items-center justify-center  font-md transition-colors duration-300";
 
@@ -11,6 +11,7 @@ function Button({ children, onClick, variant, size, to }) {
     ghost: "text-primary hover:bg-gray-100",
     outlineHero:
       "border border-white text-white backdrop-blur-sm bg-white/5 shadow-[0_0_20px_rgba(255,255,255,0.12)] hover:bg-white hover:text-primary border-2",
+    minimal: "border border-gray-200 bg-white hover:bg-gray-50 text-gray-700",
   };
   const sizes = {
     xs: "px-2 py-0.5 text-xs",
@@ -23,7 +24,7 @@ function Button({ children, onClick, variant, size, to }) {
     return (
       <NavLink
         to={to}
-        className={`${base} ${variants[variant]} ${sizes[size]}`}
+        className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
       >
         {children}
       </NavLink>
@@ -33,7 +34,7 @@ function Button({ children, onClick, variant, size, to }) {
     <button
       type="button"
       onClick={onClick}
-      className={`${base} ${variants[variant]} ${sizes[size]}`}
+      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}
     </button>
