@@ -8,6 +8,7 @@ import Profile from "../features/user/Profile";
 import PageNotFound from "../ui/PageNotFound";
 import Layout from "../ui/Layout";
 import Login from "../features/auth/Login";
+import Signup from "../features/auth/Signup";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "booking", element: <Booking /> },
       { path: "cart", element: <Cart /> },
       { path: "login", element: <Login /> },
+      { path: "Signup", element: <Signup /> },
       { path: "profile", element: <Profile /> },
     ],
   },
