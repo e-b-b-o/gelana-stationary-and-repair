@@ -9,11 +9,14 @@ import {
 import Button from "./Button";
 import MobileMenu from "./MobileMenu";
 import { useState } from "react";
+import { useAuth } from "../features/auth/AuthContext";
 
 function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const isHome = location.pathname === "/";
+  const { isAuthenticated, logout } = useAuth();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
     <>
@@ -56,20 +59,39 @@ function Navbar() {
             <span>(0)</span>
           </NavLink>
 
-          <div className="hidden sm:block space-x-2">
-            <Button to="/login" size="sm">
-              Log in
+          {isAuthenticated && (
+            <Button onClick={() => setIsProfileOpen(!isProfileOpen)}>
+              <img
+                src="https://i.pravatar.cc/40"
+                alt="User"
+                className="rounded-full object-cover sm:w-8 sm:h-8 w-6 h-6 border border-primary/20"
+              />
             </Button>
-            <Button to="/Signup" variant="primary" size="sm">
-              Sign up
-            </Button>
-          </div>
+          )}
+
+          {isAuthenticated ? (
+            <div className="hidden sm:flex items-center gap-3">
+              <Button onClick={logout} variant="outline" size="sm">
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <div className="hidden sm:flex space-x-2">
+              <Button to="/login" size="sm">
+                Log in
+              </Button>
+
+              <Button to="/signup" variant="primary" size="sm">
+                Register
+              </Button>
+            </div>
+          )}
 
           {/* Hamburger */}
           <div className="sm:hidden shrink-0">
-            <NavLink onClick={() => setIsOpen(true)}>
+            <Button onClick={() => setIsOpen(true)}>
               <Bars3Icon className="w-6" />
-            </NavLink>
+            </Button>
           </div>
         </div>
       </nav>

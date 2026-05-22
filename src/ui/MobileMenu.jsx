@@ -1,9 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Input from "./Input";
 import Button from "../ui/Button";
 import { XMarkIcon } from "@heroicons/react/16/solid";
+import { useAuth } from "../features/auth/AuthContext";
 
 function MobileMenu({ setIsOpen, isOpen }) {
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
   return (
     <aside
       className={`sm:hidden flex flex-col fixed top-0 right-0 h-full w-full bg-background shadow-lg transform transition-transform duration-300 z-50  gap-2 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
@@ -14,9 +17,9 @@ function MobileMenu({ setIsOpen, isOpen }) {
             GelanaTech
           </NavLink>
         </div>
-        <NavLink onClick={() => setIsOpen(false)}>
+        <Button onClick={() => setIsOpen(false)}>
           <XMarkIcon className="w-6" />
-        </NavLink>
+        </Button>
       </div>
       <div className="flex flex-col divide-y space-y-2 divide-black-100 mt-4 p-6 text-xl">
         <NavLink
@@ -42,15 +45,40 @@ function MobileMenu({ setIsOpen, isOpen }) {
         </NavLink>
       </div>
 
-      <div className="flex justify-between items-center gap-4 px-6 text-center mx-auto">
-        <Button to="/login" variant="outline" size="md">
-          Log in
+      {isAuthenticated ? (
+        <Button
+          onClick={() => {
+            logout();
+            setIsOpen(false);
+            navigate("/");
+          }}
+          variant="outline"
+          size="md"
+          className="mx-auto"
+        >
+          Logout
         </Button>
-        OR
-        <Button to="/Signup" variant="primary" size="md">
-          Sign up
-        </Button>
-      </div>
+      ) : (
+        <div className="flex justify-between items-center gap-4 px-6 text-center mx-auto">
+          <Button
+            to="/login"
+            variant="outline"
+            size="md"
+            onClick={() => setIsOpen(false)}
+          >
+            Log in
+          </Button>
+          OR
+          <Button
+            to="/Signup"
+            variant="primary"
+            size="md"
+            onClick={() => setIsOpen(false)}
+          >
+            Sign up
+          </Button>
+        </div>
+      )}
     </aside>
   );
 }
