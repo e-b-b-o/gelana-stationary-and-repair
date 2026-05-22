@@ -10,16 +10,27 @@ function AuthProvider({ children }) {
   );
 
   function login(userData) {
-    dispatch({ type: "auth/login", payload: userData });
+    dispatch({
+      type: "auth/login",
+      payload: userData,
+    });
   }
 
-  function logout(userData) {
-    dispatch({ type: "auth/logout" });
+  function logout() {
+    dispatch({
+      type: "auth/logout",
+    });
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, loading, login, logout }}
+      value={{
+        user,
+        isAuthenticated,
+        loading,
+        login,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -30,7 +41,7 @@ function useAuth() {
   const context = useContext(AuthContext);
 
   if (context === undefined)
-    throw new Error("Auth context was used outside of AuthProvider");
+    throw new Error("AuthContext was used outside AuthProvider");
 
   return context;
 }
