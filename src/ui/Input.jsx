@@ -8,6 +8,8 @@ function Input({
   variant = "form",
   size = "md",
   type = "text",
+  onChange,
+  value,
 }) {
   const base = "w-full  outline-none transition-all duration-300";
 
@@ -34,6 +36,8 @@ function Input({
         type={type}
         placeholder={placeholder}
         className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );
