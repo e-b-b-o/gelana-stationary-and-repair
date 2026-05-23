@@ -6,7 +6,7 @@ function Cart() {
   const subtotal = products.reduce((acc, product) => acc + product.price, 0);
 
   return (
-    <section className="py-10 sm:py-16">
+    <section className="py-10 sm:py-16 md:py-20">
       <div className="max-w-6xl mx-auto px-3 sm:px-4">
         <div className="grid gap-8 lg:grid-cols-[1.6fr_0.7fr]">
           {/* LEFT */}
@@ -65,7 +65,7 @@ function Cart() {
                 {/* Delivery */}
                 <div className="space-y-3">
                   <p className="text-sm text-gray-300">
-                    Add $50 more for free delivery
+                    Add 500 BIRR more for free delivery
                   </p>
 
                   <div className="h-2 overflow-hidden rounded-full bg-gray-800">
@@ -81,7 +81,7 @@ function Cart() {
                     </span>
 
                     <span className="text-xl sm:text-2xl font-bold">
-                      ${subtotal.toFixed(2)}
+                      {subtotal.toFixed(2)}
                     </span>
                   </div>
 
