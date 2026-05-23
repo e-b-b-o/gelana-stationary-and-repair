@@ -7,7 +7,7 @@ function Products() {
   return (
     <section className="space-y-6 md:space-y-15 mx-auto max-w-6xl py-12 sm:py-16 px-4">
       <div className="text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary">
           Products
         </h1>
         <p className="text-sm sm:text-base text-muted">
