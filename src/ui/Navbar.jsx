@@ -10,6 +10,7 @@ import Button from "./Button";
 import MobileMenu from "./MobileMenu";
 import { useState } from "react";
 import { useAuth } from "../features/auth/AuthContext";
+import UserDropdown from "../features/auth/UserDropdown";
 
 function Navbar() {
   const location = useLocation();
@@ -60,31 +61,14 @@ function Navbar() {
           </NavLink>
 
           {isAuthenticated && (
-            <Button onClick={() => setIsProfileOpen(!isProfileOpen)}>
+            // <Button onClick={() => setIsProfileOpen(!isProfileOpen)}>
+            <Button to="/profile">
               <img
-                src="https://i.pravatar.cc/40"
+                src="https://i.pravatar.cc/150"
                 alt="User"
                 className="rounded-full object-cover sm:w-8 sm:h-8 w-6 h-6 border border-primary/20"
               />
             </Button>
-          )}
-
-          {isAuthenticated ? (
-            <div className="hidden sm:flex items-center gap-3">
-              <Button onClick={logout} variant="outline" size="sm">
-                Logout
-              </Button>
-            </div>
-          ) : (
-            <div className="hidden sm:flex space-x-2">
-              <Button to="/login" size="sm">
-                Log in
-              </Button>
-
-              <Button to="/signup" variant="primary" size="sm">
-                Register
-              </Button>
-            </div>
           )}
 
           {/* Hamburger */}
