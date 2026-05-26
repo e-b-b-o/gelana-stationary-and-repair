@@ -35,82 +35,90 @@ function UserDropdown() {
       {/* AVATAR BUTTON */}
       <button
         onClick={() => setIsOpen((open) => !open)}
-        className="h-11 w-11 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-lg hover:opacity-90 transition"
+        className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-lg hover:opacity-90 transition"
       >
         {user?.email?.charAt(0).toUpperCase() || "U"}
       </button>
 
       {/* DROPDOWN */}
       {isOpen && (
-        <div className="absolute right-0 top-14 w-72 bg-white border border-primary/10 shadow-xl z-50 overflow-hidden">
-          {/* TOP USER INFO */}
-          <div className="flex flex-col items-center justify-center gap-3 px-6 py-8 border-b border-primary/10">
-            <div className="h-20 w-20 rounded-full bg-primary text-white flex items-center justify-center text-3xl font-bold">
-              {user?.email?.charAt(0).toUpperCase() || "U"}
+        <>
+          {/* Mobile backdrop overlay */}
+          <div
+            className="fixed inset-0 bg-black/25 z-40 sm:hidden"
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Dropdown panel */}
+          <div
+            className={[
+              // Mobile: fixed, centered on viewport, full-width with margin
+              "fixed left-4 right-4 top-1/2 -translate-y-1/2 z-50",
+              // Desktop: absolute, right-aligned below avatar, fixed width
+              "sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-3 sm:translate-y-0 sm:w-72",
+              // Shared styles
+              "bg-white rounded-2xl sm:rounded-xl border border-primary/10 shadow-2xl overflow-hidden",
+            ].join(" ")}
+          >
+            {/* TOP USER INFO */}
+            <div className="flex flex-col items-center justify-center gap-3 px-6 py-6 sm:py-5 border-b border-primary/10">
+              <div className="h-16 w-16 sm:h-14 sm:w-14 rounded-full bg-primary text-white flex items-center justify-center text-2xl sm:text-xl font-bold">
+                {user?.email?.charAt(0).toUpperCase() || "U"}
+              </div>
+
+              <div className="text-center">
+                <h3 className="text-base font-bold text-primary leading-tight">
+                  {user?.email || "Guest User"}
+                </h3>
+                <p className="text-sm text-muted mt-0.5">Customer Account</p>
+              </div>
             </div>
 
-            <div className="text-center">
-              <h3 className="text-lg font-bold text-primary">
-                {user?.email || "Guest User"}
-              </h3>
+            {/* MENU ITEMS */}
+            <div className="flex flex-col py-1">
+              <NavLink
+                to="/profile"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-5 py-3 hover:bg-primary/5 transition text-primary text-sm"
+              >
+                <UserCircleIcon className="w-5 h-5" />
+                Profile
+              </NavLink>
 
-              <p className="text-sm text-muted">Customer Account</p>
+              <NavLink
+                to="/orders"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-5 py-3 hover:bg-primary/5 transition text-primary text-sm"
+              >
+                <ClipboardDocumentListIcon className="w-5 h-5" />
+                Orders
+              </NavLink>
+
+              <NavLink
+                to="/booking"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-5 py-3 hover:bg-primary/5 transition text-primary text-sm"
+              >
+                <WrenchScrewdriverIcon className="w-5 h-5" />
+                Bookings
+              </NavLink>
+            </div>
+
+            {/* LOGOUT */}
+            <div className="border-t border-primary/10">
+              <button
+                onClick={() => {
+                  logout();
+                  setIsOpen(false);
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-red-50 transition text-red-500 text-sm"
+              >
+                <ArrowRightOnRectangleIcon className="w-5 h-5" />
+                Logout
+              </button>
             </div>
           </div>
-
-          {/* MENU ITEMS */}
-          <div className="flex flex-col py-2">
-            <NavLink
-              to="/profile"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-6 py-4 hover:bg-primary/5 transition text-primary"
-            >
-              <UserCircleIcon className="w-5 h-5" />
-              Profile
-            </NavLink>
-
-            <NavLink
-              to="/orders"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-6 py-4 hover:bg-primary/5 transition text-primary"
-            >
-              <ClipboardDocumentListIcon className="w-5 h-5" />
-              Orders
-            </NavLink>
-
-            <NavLink
-              to="/booking"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-6 py-4 hover:bg-primary/5 transition text-primary"
-            >
-              <WrenchScrewdriverIcon className="w-5 h-5" />
-              Bookings
-            </NavLink>
-
-            <NavLink
-              to="/settings"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-6 py-4 hover:bg-primary/5 transition text-primary"
-            >
-              <Cog6ToothIcon className="w-5 h-5" />
-              Settings
-            </NavLink>
-          </div>
-
-          {/* LOGOUT */}
-          <div className="border-t border-primary/10">
-            <button
-              onClick={() => {
-                logout();
-                setIsOpen(false);
-              }}
-              className="w-full flex items-center gap-3 px-6 py-4 hover:bg-red-50 transition text-red-500"
-            >
-              <ArrowRightOnRectangleIcon className="w-5 h-5" />
-              Logout
-            </button>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
