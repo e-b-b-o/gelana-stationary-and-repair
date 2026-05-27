@@ -9,8 +9,11 @@ function MobileMenu({ setIsOpen, isOpen }) {
   const navigate = useNavigate();
   return (
     <aside
-      className={`sm:hidden flex flex-col fixed top-0 right-0 h-full w-[80%] bg-background shadow-lg transform transition-transform duration-300 z-50  gap-2 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+      className={`sm:hidden flex flex-col fixed top-0 left-0 h-full w-[80%] bg-background shadow-lg transform transition-transform duration-300 z-50  gap-2 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
+
+      {/* Mobile backdrop overlay */}
+
       <div className="flex justify-between  bg-white text-primary p-6 w-full">
         <div className="flex items-center gap-4 sm:gap-8 min-w-0 ">
           <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">

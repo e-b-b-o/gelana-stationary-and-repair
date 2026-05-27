@@ -3,9 +3,33 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Button from "../../ui/Button";
 import Input from "../../ui/Input";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "./AuthContext";
 
 function Signup() {
+  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("")
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    if (!password || !email) return
+
+    const newUser = {
+      id: Date.now(),
+      email
+    }
+
+    login(newUser)
+    setEmail("")
+    setPassword("")
+    navigate("/login")
+
+  }
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-10 md:py-16">
       <div className="w-full max-w-6xl bg-white border border-primary/10 shadow-sm overflow-hidden">
@@ -25,7 +49,7 @@ function Signup() {
               </div>
 
               {/* FORM */}
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 {/* EMAIL */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-primary">
@@ -37,6 +61,8 @@ function Signup() {
                     variant="form"
                     size="lg"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -53,6 +79,8 @@ function Signup() {
                       size="lg"
                       type="password"
                       className="pr-12"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
 
                     <EyeIcon className="w-5 h-5 text-gray-400 absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer" />
@@ -80,6 +108,7 @@ function Signup() {
                     variant="primary"
                     size="lg"
                     className="w-full justify-center"
+                    type="submit"
                   >
                     Sign up
                   </Button>
@@ -96,9 +125,9 @@ function Signup() {
 
               {/* SIGNUP */}
               <p className="text-sm text-center text-muted">
-                Already have an account?{" "}
+                Already have an account?
                 <NavLink
-                  to="/Login"
+                  to="/login"
                   className="font-semibold text-primary hover:opacity-70 transition"
                 >
                   Sign in
