@@ -24,6 +24,8 @@ function Login() {
     };
 
     login(fakeUser);
+    setEmail("");
+    setPassword("")
     navigate("/");
   }
 

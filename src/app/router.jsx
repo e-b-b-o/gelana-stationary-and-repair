@@ -7,8 +7,8 @@ import Cart from "../features/cart/Cart";
 import Profile from "../features/user/Profile";
 import PageNotFound from "../ui/PageNotFound";
 import Layout from "../ui/Layout";
-import Login from "../features/auth/Login";
-import Signup from "../features/auth/Signup";
+import Login from "../features/auth/login";
+import Signup from "../features/auth/signup";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
       { path: "booking", element: <Booking /> },
       { path: "cart", element: <Cart /> },
       { path: "login", element: <Login /> },
-      { path: "Signup", element: <Signup /> },
+      { path: "signup", element: <Signup /> },
       { path: "profile", element: <Profile /> },
     ],
   },
