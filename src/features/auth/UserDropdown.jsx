@@ -35,7 +35,7 @@ function UserDropdown() {
       {/* AVATAR BUTTON */}
       <button
         onClick={() => setIsOpen((open) => !open)}
-        className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-lg hover:opacity-90 transition"
+        className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-lg hover:opacity-90 transition"
       >
         {user?.email?.charAt(0).toUpperCase() || "U"}
       </button>
@@ -53,11 +53,11 @@ function UserDropdown() {
           <div
             className={[
               // Mobile: fixed, centered on viewport, full-width with margin
-              "fixed left-4 right-4 top-1/2 -translate-y-1/2 z-50",
+              "fixed left-0 right-5 top-18 z-50",
               // Desktop: absolute, right-aligned below avatar, fixed width
               "sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-3 sm:translate-y-0 sm:w-72",
               // Shared styles
-              "bg-white rounded-2xl sm:rounded-xl border border-primary/10 shadow-2xl overflow-hidden",
+              "bg-white rounded-sm sm:rounded-sm border border-primary/10 shadow-2xl overflow-hidden",
             ].join(" ")}
           >
             {/* TOP USER INFO */}

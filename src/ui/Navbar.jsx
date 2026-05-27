@@ -22,14 +22,19 @@ function Navbar() {
       )}
 
       <nav
-        className={`w-full z-50 sm:px-20 sm:py-8 px-6 py-6 flex justify-between items-center ${
-          isHome
-            ? "absolute top-0 left-0 bg-transparent text-white"
-            : "sticky top-0 bg-white shadow-sm text-black"
-        }`}
+        className={`w-full z-50 sm:px-20 sm:py-8 px-6 py-6 flex justify-between items-center ${isHome
+          ? "absolute top-0 left-0 bg-transparent text-white"
+          : "sticky top-0 bg-white shadow-sm text-black"
+          }`}
       >
         {/* LEFT */}
-        <div className="flex items-center gap-4 sm:gap-8 min-w-0">
+        <div className="flex space-x-2  min-w-0">
+          {/* Hamburger — mobile only */}
+          <div className="sm:hidden shrink-0">
+            <Button onClick={() => setIsOpen(true)}>
+              <Bars3Icon className="w-6" />
+            </Button>
+          </div>
           <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
             GelanaTech
           </NavLink>
@@ -76,16 +81,11 @@ function Navbar() {
             </div>
           )}
 
-          {/* Hamburger — mobile only */}
-          <div className="sm:hidden shrink-0">
-            <Button onClick={() => setIsOpen(true)}>
-              <Bars3Icon className="w-6" />
-            </Button>
-          </div>
+
         </div>
       </nav>
-
       <MobileMenu setIsOpen={setIsOpen} isOpen={isOpen} />
+
     </>
   );
 }
