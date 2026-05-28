@@ -1,9 +1,12 @@
-import products from "../../data/products";
-import CartItems from "./CartItems";
 import Button from "../../ui/Button";
+import { useCart } from "./CartContext";
+import { EmptyCart } from "./EmptyCart";
+import CartItem from "./CartItem";
 
 function Cart() {
-  const subtotal = products.reduce((acc, product) => acc + product.price, 0);
+  const { cartItems,  totalPrice, totalItems, clear } = useCart();
+
+  if (cartItems?.length === 0) return <EmptyCart />;
 
   return (
     <section className="py-10 sm:py-16 md:py-20">
@@ -33,7 +36,7 @@ function Cart() {
                   </div>
 
                   <span className="text-sm font-medium text-gray-700">
-                    {products.length}/{products.length} items selected
+                    {totalItems}/{cartItems.length} items selected
                   </span>
                 </div>
 
@@ -43,7 +46,7 @@ function Cart() {
                     Wishlist
                   </button>
 
-                  <button className="hover:text-red-500 transition-colors">
+                  <button className="hover:text-red-500 transition-colors" onClick={()=> clear()}>
                     Remove
                   </button>
                 </div>
@@ -51,8 +54,8 @@ function Cart() {
 
               {/* Items */}
               <div className="divide-y divide-gray-200">
-                {products.map((product) => (
-                  <CartItems product={product} key={product.id} />
+                {cartItems.map((product) => (
+                  <CartItem product={product} key={product.id} />
                 ))}
               </div>
             </div>
@@ -77,11 +80,11 @@ function Cart() {
                 <div className="space-y-4 border-t border-gray-800 pt-6">
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-sm sm:text-base text-gray-400">
-                      Subtotal
+                      {totalPrice}
                     </span>
 
                     <span className="text-xl sm:text-2xl font-bold">
-                      {subtotal.toFixed(2)}
+                      {totalPrice.toFixed(2)}
                     </span>
                   </div>
 

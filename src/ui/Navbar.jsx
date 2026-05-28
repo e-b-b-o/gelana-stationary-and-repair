@@ -5,12 +5,14 @@ import MobileMenu from "./MobileMenu";
 import { useState } from "react";
 import { useAuth } from "../features/auth/AuthContext";
 import UserDropdown from "../features/auth/UserDropdown";
+import { useCart } from "../features/cart/CartContext";
 
 function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const isHome = location.pathname === "/";
   const { isAuthenticated } = useAuth();
+  const { totalItems } = useCart();
 
   return (
     <>
@@ -22,10 +24,11 @@ function Navbar() {
       )}
 
       <nav
-        className={`w-full z-50 sm:px-20 sm:py-8 px-6 py-6 flex justify-between items-center ${isHome
-          ? "absolute top-0 left-0 bg-transparent text-white"
-          : "sticky top-0 bg-white shadow-sm text-black"
-          }`}
+        className={`w-full z-50 sm:px-20 sm:py-8 px-6 py-6 flex justify-between items-center ${
+          isHome
+            ? "absolute top-0 left-0 bg-transparent text-white"
+            : "sticky top-0 bg-white shadow-sm text-black"
+        }`}
       >
         {/* LEFT */}
         <div className="flex space-x-2  min-w-0">
@@ -58,7 +61,7 @@ function Navbar() {
           {/* Cart */}
           <NavLink to="/cart" className="flex items-center gap-0.5">
             <ShoppingCartIcon className="w-6 shrink-0 inline-block" />
-            <span>(0)</span>
+            <span>({totalItems})</span>
           </NavLink>
 
           {/* User avatar with dropdown */}
@@ -80,12 +83,9 @@ function Navbar() {
               </Button>
             </div>
           )}
-
-
         </div>
       </nav>
       <MobileMenu setIsOpen={setIsOpen} isOpen={isOpen} />
-
     </>
   );
 }
