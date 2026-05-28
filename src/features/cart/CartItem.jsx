@@ -7,8 +7,10 @@ import {
 
 import { formatCurrency } from "../../utils/formatCurrency";
 import Button from "../../ui/Button";
+import { useCart } from "./CartContext";
 
-function CartItems({ product }) {
+function CartItem({ product }) {
+ const { increaseQuantity, decreaseQuantity, removeItem } = useCart();
   return (
     <div className="flex gap-3 p-3 sm:gap-4 sm:p-5 hover:bg-gray-50 transition-colors duration-300">
       {/* Checkbox */}
@@ -46,7 +48,7 @@ function CartItems({ product }) {
           </div>
 
           {/* Remove */}
-          <button className="shrink-0 text-gray-400 hover:text-red-500 transition-colors">
+          <button className="shrink-0 text-gray-400 hover:text-red-500 transition-colors" onClick={()=> removeItem(product.id)}>
             <XMarkIcon className="h-4 w-4" />
           </button>
         </div>
@@ -60,13 +62,13 @@ function CartItems({ product }) {
 
           {/* Quantity */}
           <div className="flex items-center gap-2 self-start">
-            <Button variant="minimal" size="xs" className="rounded-md !p-1">
+            <Button variant="minimal" size="xs" className="rounded-md !p-1" onClick={()=> decreaseQuantity(product.id)}>
               <MinusIcon className="h-3 w-3" />
             </Button>
 
-            <span className="min-w-5 text-center text-sm font-medium">1</span>
+            <span className="min-w-5 text-center text-sm font-medium">{product.quantity}</span>
 
-            <Button variant="minimal" size="xs" className="rounded-md !p-1">
+            <Button variant="minimal" size="xs" className="rounded-md !p-1" onClick={()=> increaseQuantity(product.id)}>
               <PlusIcon className="h-3 w-3" />
             </Button>
           </div>
@@ -76,4 +78,4 @@ function CartItems({ product }) {
   );
 }
 
-export default CartItems;
+export default CartItem;

@@ -29,6 +29,6 @@ export function authReducer(state, action) {
         loading: false,
       };
     default:
-      throw new Error("Unknown action type");
+      return state;
   }
 }

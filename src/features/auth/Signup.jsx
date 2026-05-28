@@ -8,27 +8,25 @@ import { useState } from "react";
 import { useAuth } from "./AuthContext";
 
 function Signup() {
-  const [password, setPassword] = useState("")
-  const [email, setEmail] = useState("")
-  const { login } = useAuth()
-  const navigate = useNavigate()
-
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!password || !email) return
+    if (!password || !email) return;
 
     const newUser = {
       id: Date.now(),
-      email
-    }
+      email,
+    };
 
-    login(newUser)
-    setEmail("")
-    setPassword("")
-    navigate("/login")
-
+    login(newUser);
+    setEmail("");
+    setPassword("");
+    navigate("/");
   }
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-10 md:py-16">
