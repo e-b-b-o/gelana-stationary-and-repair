@@ -12,10 +12,10 @@ function Cta() {
         </p>
       </div>
       <div className="space-x-3 flex items-center justify-center">
-        <Button size="md" variant="primary">
+        <Button size="md" variant="primary" to="/products">
           Shop Products
         </Button>
-        <Button size="md" variant="outline">
+        <Button size="md" variant="outline" to="/booking">
           Book Repair
         </Button>
       </div>

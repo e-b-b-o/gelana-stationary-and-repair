@@ -20,10 +20,10 @@ function Hero() {
             professional repair services — all in one place.
           </p>
           <div className="flex flex-col mt-6 gap-4 justify-center md:justify-start sm:w-80 ">
-            <Button variant="primary" size="md">
+            <Button variant="primary" size="md" to="/products">
               Shop Products
             </Button>
-            <Button variant="outlineHero" size="md">
+            <Button variant="outlineHero" size="md" to="/booking">
               Book Repair
             </Button>
           </div>

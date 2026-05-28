@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import { useAuth } from "../features/auth/AuthContext";
 
 function MobileMenu({ setIsOpen, isOpen }) {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated  } = useAuth();
   const navigate = useNavigate();
   return (
     <aside
@@ -60,7 +60,7 @@ function MobileMenu({ setIsOpen, isOpen }) {
           </Button>
           OR
           <Button
-            to="/Signup"
+            to="/signup"
             variant="primary"
             size="md"
             onClick={() => setIsOpen(false)}

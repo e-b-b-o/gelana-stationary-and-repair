@@ -86,7 +86,7 @@ function UserDropdown() {
               </NavLink>
 
               <NavLink
-                to="/orders"
+                to="/order"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 px-5 py-3 hover:bg-primary/5 transition text-primary text-sm"
               >

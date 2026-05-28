@@ -35,7 +35,7 @@ function Categories() {
             Let the engeneer take a loook at your laptop and find exact issues
             and repair them for you
           </p>
-          <Button variant="outline" size="sm" to="booking">
+          <Button variant="outline" size="sm" to="/booking">
             Book Repair
           </Button>
         </div>
