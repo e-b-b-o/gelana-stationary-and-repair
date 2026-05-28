@@ -1,13 +1,16 @@
 import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { StarIcon } from "@heroicons/react/16/solid";
+import { useCart } from "../cart/CartContext";
 
 function ProductCard({ product }) {
+  const { addItem } = useCart();
+
   return (
     <div className="space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white">
       <img
         src={product.image}
-        alt="product image"
+        alt={product.name}
         className="h-60 w-full object-cover rounded-sm"
       />
       <div>
@@ -20,7 +23,7 @@ function ProductCard({ product }) {
         </span>
       </div>
       <div className="w-full">
-        <Button variant="primary" size="sm">
+        <Button variant="primary" size="sm" onClick={() => addItem(product)}>
           Add to cart
         </Button>
       </div>
