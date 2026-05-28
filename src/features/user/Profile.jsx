@@ -1,6 +1,8 @@
 import Button from "../../ui/Button";
+import { useAuth } from "../auth/AuthContext";
 
 function Profile() {
+  const {user} = useAuth()
   return (
     <section className="max-w-4xl mx-auto px-4 py-12 sm:py-16 md:py-20 space-y-8">
       {/* PAGE TITLE */}
@@ -87,7 +89,7 @@ function Profile() {
           <div className="space-y-1">
             <p className="text-sm text-muted">Email Address</p>
             <p className="text-base font-medium text-primary">
-              gelana@gmail.com
+              {user.email}
             </p>
           </div>
 
