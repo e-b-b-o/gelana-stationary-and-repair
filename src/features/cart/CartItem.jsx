@@ -9,15 +9,26 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import Button from "../../ui/Button";
 import { useCart } from "./CartContext";
 
-function CartItem({ product }) {
+function CartItem({ product, selectedIds, handleToggleSelect }) {
   const { increaseQuantity, decreaseQuantity, removeItem } = useCart();
   return (
-    <div className="flex gap-3 p-3 sm:gap-4 sm:p-5 hover:bg-gray-50 transition-colors duration-300">
+    <div
+      className={`flex gap-3 p-3 sm:gap-4 sm:p-5 transition-colors duration-300 ${
+        selectedIds.has(product.id) ? "bg-primary/5" : "hover:bg-gray-50"
+      }`}
+    >
       {/* Checkbox */}
-      <div className="pt-1 shrink-0">
-        <div className="flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded border border-gray-300 bg-black text-white">
-          <CheckIcon className="h-3 w-3" />
-        </div>
+      <div
+        className="pt-1 shrink-0 cursor-pointer"
+        onClick={() => handleToggleSelect(product.id)}
+      >
+        {selectedIds.has(product.id) ? (
+          <div className="flex h-5 w-5 items-center justify-center rounded border border-black bg-black text-white">
+            <CheckIcon className="h-3 w-3" />
+          </div>
+        ) : (
+          <div className="h-5 w-5 rounded border border-gray-300 bg-white" />
+        )}
       </div>
 
       {/* Product Image */}

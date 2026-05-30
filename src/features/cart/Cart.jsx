@@ -3,8 +3,33 @@ import { useCart } from "./CartContext";
 import { EmptyCart } from "./EmptyCart";
 import CartItem from "./CartItem";
 
+import { useState } from "react";
+
 function Cart() {
-  const { cartItems,  totalPrice, totalItems, clear } = useCart();
+  const { cartItems, totalPrice, totalItems, clear, removeMultipleItems } =
+    useCart();
+  const [selectedIds, setSelectedIds] = useState(new Set());
+
+  function handleToggleSelect(id) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function handleSelectAll() {
+    if (selectedIds.size === cartItems.length) setSelectedIds(new Set());
+    else setSelectedIds(new Set(cartItems.map((item) => item.id)));
+  }
+
+  function handleRemoveSelected() {
+    removeMultipleItems([...selectedIds]);
+
+    setSelectedIds(new Set());
+  }
 
   if (cartItems?.length === 0) return <EmptyCart />;
 
@@ -30,13 +55,22 @@ function Cart() {
               {/* Toolbar */}
               <div className="flex flex-col gap-3 border-b border-gray-200 px-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
                 {/* Left */}
-                <div className="flex items-center gap-2">
-                  <div className="flex h-5 w-5 items-center justify-center rounded border border-black bg-black text-white text-xs">
-                    ✓
+                <div
+                  className="flex items-center gap-2"
+                  onClick={handleSelectAll}
+                >
+                  <div className="pt-1 shrink-0">
+                    {selectedIds.size === cartItems.length ? (
+                      <div className="flex h-5 w-5 items-center justify-center rounded border border-black bg-black text-white">
+                        ✓
+                      </div>
+                    ) : (
+                      <div className="h-5 w-5 rounded border border-gray-300 bg-white" />
+                    )}
                   </div>
 
                   <span className="text-sm font-medium text-gray-700">
-                    {totalItems}/{cartItems.length} items selected
+                    {selectedIds.size}/{cartItems.length} items selected
                   </span>
                 </div>
 
@@ -46,16 +80,26 @@ function Cart() {
                     Wishlist
                   </button>
 
-                  <button className="hover:text-red-500 transition-colors" onClick={()=> clear()}>
-                    Remove
-                  </button>
+                  {selectedIds.size > 0 && (
+                    <button
+                      className="hover:text-red-500 transition-colors"
+                      onClick={handleRemoveSelected}
+                    >
+                      Remove ({selectedIds.size})
+                    </button>
+                  )}
                 </div>
               </div>
 
               {/* Items */}
               <div className="divide-y divide-gray-200">
                 {cartItems.map((product) => (
-                  <CartItem product={product} key={product.id} />
+                  <CartItem
+                    product={product}
+                    key={product.id}
+                    selectedIds={selectedIds}
+                    handleToggleSelect={handleToggleSelect}
+                  />
                 ))}
               </div>
             </div>
