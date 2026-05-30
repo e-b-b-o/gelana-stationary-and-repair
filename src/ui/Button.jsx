@@ -8,6 +8,7 @@ function Button({
   to,
   className,
   type = "button",
+  disabled,
 }) {
   const base =
     "inline-flex items-center justify-center  font-md transition-colors duration-300";
@@ -43,6 +44,7 @@ function Button({
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}
