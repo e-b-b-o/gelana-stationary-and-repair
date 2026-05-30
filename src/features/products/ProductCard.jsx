@@ -2,9 +2,25 @@ import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { StarIcon } from "@heroicons/react/16/solid";
 import { useCart } from "../cart/CartContext";
+import { useState } from "react";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 function ProductCard({ product }) {
+  const [isAdded, setIsAdded] = useState(false);
   const { addItem } = useCart();
+
+
+  const handleAdd = () => {
+    addItem(product);
+
+    setIsAdded(true);
+
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 2000);
+  };
+
+
 
   return (
     <div className="space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white">
@@ -22,10 +38,21 @@ function ProductCard({ product }) {
           <StarIcon className="h-4.5 text-amber-500 inline ml-1 " />
         </span>
       </div>
-      <div className="w-full">
-        <Button variant="primary" size="sm" onClick={() => addItem(product)}>
+      <div className="w-full flex gap-4">
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={handleAdd}
+          disabled={isAdded}
+        >
           Add to cart
         </Button>
+        {isAdded && (
+          <div className="flex justify-center items-center gap-1  bg-green-500 px-2 py-1 rounded-sm">
+            <CheckBadgeIcon className="w-4 h-4 text-white cursor-default" />
+            <span className="text-sm">added</span>
+          </div>
+        )}
       </div>
     </div>
   );
