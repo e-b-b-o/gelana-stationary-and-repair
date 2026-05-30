@@ -6,22 +6,19 @@ const CartContext = createContext();
 function CartProvider({ children }) {
   const [{ cartItems }, dispatch] = useReducer(cartReducer, initialState);
 
-  
-  
   useEffect(() => {
-  try {
-    const saved = localStorage.getItem("cart");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed)) {
-        dispatch({ type: "cart/init", payload: parsed });
+    try {
+      const saved = localStorage.getItem("cart");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          dispatch({ type: "cart/init", payload: parsed });
+        }
       }
+    } catch (e) {
+      localStorage.removeItem("cart");
     }
-  } catch (e) {
-    localStorage.removeItem("cart");
-  }
-}, []);
-
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -34,6 +31,9 @@ function CartProvider({ children }) {
   };
   const removeItem = (id) => {
     dispatch({ type: "cart/removeItem", payload: id });
+  };
+  const removeMultipleItems = (ids) => {
+    dispatch({ type: "removeMutipleItems", payload: ids });
   };
   const increaseQuantity = (id) => {
     dispatch({ type: "cart/increaseQuantity", payload: id });
@@ -59,6 +59,7 @@ function CartProvider({ children }) {
         cartItems: cartItems,
         addItem,
         removeItem,
+        removeMultipleItems,
         increaseQuantity,
         decreaseQuantity,
         clear,
