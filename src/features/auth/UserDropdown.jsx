@@ -6,6 +6,7 @@ import {
   ArrowRightOnRectangleIcon,
   ClipboardDocumentListIcon,
   WrenchScrewdriverIcon,
+  HeartIcon,
 } from "@heroicons/react/24/outline";
 
 import { useAuth } from "./AuthContext";
@@ -83,6 +84,14 @@ function UserDropdown() {
               >
                 <UserCircleIcon className="w-5 h-5" />
                 Profile
+              </NavLink>
+              <NavLink
+                to="/wishlist"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-5 py-3 hover:bg-primary/5 transition text-primary text-sm"
+              >
+                <HeartIcon className="w-5 h-5" />
+                Wishlist
               </NavLink>
 
               <NavLink

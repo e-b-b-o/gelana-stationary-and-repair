@@ -9,8 +9,9 @@ import PageNotFound from "../ui/PageNotFound";
 import Layout from "../ui/Layout";
 import Login from "../features/auth/Login";
 import Signup from "../features/auth/Signup";
-import ProtectedRoute from "../features/auth/ProtectedRoute"
+import ProtectedRoute from "../features/auth/ProtectedRoute";
 import { Order } from "../features/order/Order";
+import Wishlist from "../features/wishlist/Wishlist";
 
 export const router = createBrowserRouter([
   {
@@ -21,8 +22,9 @@ export const router = createBrowserRouter([
       { path: "products", element: <Products /> },
       { path: "booking", element: <Booking /> },
       { path: "cart", element: <Cart /> },
-       { path: "order", element: <Order /> },
-      { path: "login", element: <Login />},
+      { path: "wishlist", element: <Wishlist /> },
+      { path: "order", element: <Order /> },
+      { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       {
         path: "profile",

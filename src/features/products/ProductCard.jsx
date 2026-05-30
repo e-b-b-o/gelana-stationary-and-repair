@@ -3,12 +3,21 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import { StarIcon } from "@heroicons/react/16/solid";
 import { useCart } from "../cart/CartContext";
 import { useState } from "react";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { CheckBadgeIcon, HeartIcon } from "@heroicons/react/24/solid";
+import { useWishlist } from "../wishlist/WishlistContext";
 
 function ProductCard({ product }) {
   const [isAdded, setIsAdded] = useState(false);
   const { addItem } = useCart();
+  const { toggleWishlist, wishlistItems } = useWishlist();
 
+  const isWishlisted = wishlistItems.some((item) => item.id === product.id);
+
+
+  const handleAddWishlist = (e) => {
+    e.preventDefault();
+    toggleWishlist(product);
+  };
 
   const handleAdd = () => {
     addItem(product);
@@ -23,7 +32,14 @@ function ProductCard({ product }) {
 
 
   return (
-    <div className="space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white">
+    <div className="relative space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white">
+      <button className="absolute right-6 top-6" onClick={handleAddWishlist}>
+        <HeartIcon
+          className={
+            isWishlisted ? "w-8 h-8 fill-red-500" : "w-8 h-8 text-primary"
+          }
+        />
+      </button>
       <img
         src={product.image}
         alt={product.name}

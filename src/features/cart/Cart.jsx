@@ -2,7 +2,7 @@ import Button from "../../ui/Button";
 import { useCart } from "./CartContext";
 import { EmptyCart } from "./EmptyCart";
 import CartItem from "./CartItem";
-
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Cart() {
@@ -76,9 +76,12 @@ function Cart() {
 
                 {/* Right */}
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                  <button className="hover:text-black transition-colors">
+                  <NavLink
+                    className="hover:text-black transition-colors"
+                    to="/wishlist"
+                  >
                     Wishlist
-                  </button>
+                  </NavLink>
 
                   {selectedIds.size > 0 && (
                     <button
