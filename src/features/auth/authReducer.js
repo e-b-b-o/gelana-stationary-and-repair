@@ -1,32 +1,36 @@
 export const initialState = {
-  user: null,
-  isAuthenticated: false,
+  user: JSON.parse(localStorage.getItem("current_user")) || null,
+
   loading: false,
+  error: null,
 };
 
 export function authReducer(state, action) {
   switch (action.type) {
-    case "auth/login":
+    case "auth/start":
       return {
         ...state,
+        loading: true,
+        error: null,
+      };
+    case "auth/success":
+      return {
+        ...state,
+        loading: false,
+        error: null,
         user: action.payload,
-        isAuthenticated: true,
+      };
+    case "auth/fail":
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
       };
     case "auth/logout":
       return {
         ...state,
         user: null,
-        isAuthenticated: false,
-      };
-    case "auth/loading":
-      return {
-        ...state,
-        loading: true,
-      };
-    case "auth/stopLoading":
-      return {
-        ...state,
-        loading: false,
+        error: null,
       };
     default:
       return state;

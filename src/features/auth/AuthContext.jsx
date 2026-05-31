@@ -1,52 +1,52 @@
 import { createContext, useReducer, useContext, useEffect } from "react";
-import { authReducer , initialState } from "./authReducer";
+import { authReducer, initialState } from "./authReducer";
+import { ArrowUpTrayIcon } from "@heroicons/react/16/solid";
+import { authService } from "./authService";
 
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated, loading }, dispatch] = useReducer(
-    authReducer,
-    initialState,
-  );
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
- useEffect(() => {
-  try {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const parsed = JSON.parse(storedUser);
-      if (parsed && typeof parsed === "object") {
-        dispatch({ type: "auth/login", payload: parsed });
-      }
+  const register = async (email, fullname, password) => {
+    dispatch({ type: "auth/start" });
+
+    try {
+      const user = await authService.register(email, fullname, password);
+      dispatch({ type: "auth/success", payload: user });
+    } catch (error) {
+      dispatch({ type: "auth/fail", payload: error.message });
+
+      throw error;
     }
-  } catch (e) {
-    localStorage.removeItem("user");
-  }
-}, []);
+  };
 
+  const login = async (email, password) => {
+    dispatch({ type: "auth/start" });
+    try {
+      const user = await authService.login(email, password);
+      dispatch({ type: "auth/success", payload: user });
+    } catch (error) {
+      dispatch({ type: "auth/fail", payload: error.message });
+      throw error;
+    }
+  };
 
-  function login(userData) {
-    localStorage.setItem("user", JSON.stringify(userData));
-    dispatch({
-      type: "auth/login",
-      payload: userData,
-    });
-  }
+  const logout = () => {
+    authService.logout();
+    dispatch({ type: "auth/logout" });
+  };
 
-  function logout() {
-    localStorage.removeItem("user");
-    dispatch({
-      type: "auth/logout",
-    });
-  }
+  const isAuthenticated = state.user !== null;
 
   return (
     <AuthContext.Provider
       value={{
-        user,
-        isAuthenticated,
-        loading,
+        ...state,
         login,
+        register,
         logout,
+        isAuthenticated,
       }}
     >
       {children}
