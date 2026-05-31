@@ -33,7 +33,7 @@ function CartProvider({ children }) {
     dispatch({ type: "cart/removeItem", payload: id });
   };
   const removeMultipleItems = (ids) => {
-    dispatch({ type: "removeMutipleItems", payload: ids });
+    dispatch({ type: "cart/removeMultipleItems", payload: ids });
   };
   const increaseQuantity = (id) => {
     dispatch({ type: "cart/increaseQuantity", payload: id });

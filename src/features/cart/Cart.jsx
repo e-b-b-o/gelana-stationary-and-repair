@@ -6,8 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Cart() {
-  const { cartItems, totalPrice, totalItems, clear, removeMultipleItems } =
-    useCart();
+  const { cartItems, totalPrice, removeMultipleItems } = useCart();
   const [selectedIds, setSelectedIds] = useState(new Set());
 
   function handleToggleSelect(id) {
