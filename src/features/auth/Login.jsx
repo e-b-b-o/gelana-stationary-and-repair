@@ -13,20 +13,21 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!email || !password) return;
 
-    const fakeUser = {
-      id: 1,
-      email,
-    };
+    try {
+      await login(email, password);
 
-    login(fakeUser);
-    setEmail("");
-    setPassword("")
-    navigate("/");
+      setEmail("");
+      setPassword("");
+
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (

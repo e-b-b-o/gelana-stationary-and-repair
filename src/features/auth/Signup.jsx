@@ -8,25 +8,33 @@ import { useState } from "react";
 import { useAuth } from "./AuthContext";
 
 function Signup() {
+  const [fullname, setFullname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const { login } = useAuth();
+  const { register } = useAuth();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!password || !email) return;
+    if (!password || !email || !fullname) return;
 
-    const newUser = {
-      id: Date.now(),
-      email,
-    };
+    if (!fullname.trim()) throw new Error("Full name required");
+    if (!email.includes("@")) throw new Error("Valid email required");
+    if (!password.length)
+      throw new Error("Password must be at least 6 characters");
 
-    login(newUser);
-    setEmail("");
-    setPassword("");
-    navigate("/");
+    try {
+      await register(fullname, email, password);
+
+      setFullname("");
+      setEmail("");
+      setPassword("");
+
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
   }
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-10 md:py-16">
@@ -48,6 +56,22 @@ function Signup() {
 
               {/* FORM */}
               <form className="space-y-5" onSubmit={handleSubmit}>
+                {/* FULL NAME */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-primary">
+                    Full Name
+                  </label>
+
+                  <Input
+                    placeholder="Gelana Techan"
+                    variant="form"
+                    size="lg"
+                    type="text"
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
+                  />
+                </div>
+
                 {/* EMAIL */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-primary">
