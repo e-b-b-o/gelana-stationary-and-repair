@@ -8,11 +8,11 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const register = async (email, fullname, password) => {
+  const register = async (fullname, email, password) => {
     dispatch({ type: "auth/start" });
 
     try {
-      const user = await authService.register(email, fullname, password);
+      const user = await authService.register(fullname, email, password);
       dispatch({ type: "auth/success", payload: user });
     } catch (error) {
       dispatch({ type: "auth/fail", payload: error.message });
