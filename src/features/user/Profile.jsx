@@ -48,7 +48,7 @@ function Profile() {
               Change Avatar
             </Button>
 
-            <Button variant="primary" size="sm">
+            <Button variant="primary" size="sm" to="/editprofile">
               Edit Profile
             </Button>
           </div>
@@ -91,7 +91,7 @@ function Profile() {
             </p>
           </div>
 
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" to="/editprofile">
             Edit
           </Button>
         </div>
@@ -109,7 +109,7 @@ function Profile() {
 
           <div>
             <p className="text-muted text-sm">Phone</p>
-            <p className="font-medium mt-1">Not Added</p>
+            <p className="font-medium mt-1">{user?.phone}</p>
           </div>
 
           <div>
@@ -129,7 +129,7 @@ function Profile() {
             </p>
           </div>
 
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" to="/editprofile">
             Edit
           </Button>
         </div>
@@ -147,12 +147,12 @@ function Profile() {
 
           <div>
             <p className="text-muted text-sm">Postal Code</p>
-            <p className="font-medium mt-1">1000</p>
+            <p className="font-medium mt-1">{user?.postalCode}</p>
           </div>
 
           <div>
             <p className="text-muted text-sm">Address</p>
-            <p className="font-medium mt-1">Not Added</p>
+            <p className="font-medium mt-1">{user?.address}</p>
           </div>
         </div>
       </div>
@@ -161,9 +161,11 @@ function Profile() {
         <h3 className="text-2xl font-bold mb-6">Account Actions</h3>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button variant="outline">Change Password</Button>
+          <Button variant="outline" size="md" to="/editprofile">
+            Change Password
+          </Button>
 
-          <Button variant="primary" onClick={logout}>
+          <Button variant="primary" size="md" onClick={logout}>
             Logout
           </Button>
         </div>
