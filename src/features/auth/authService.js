@@ -17,8 +17,9 @@ export const authService = {
       phone: "",
       country: "",
       city: "",
+      address: "",
       postalCode: "",
-      createdAt: new Date().toISOString,
+      createdAt: new Date().toISOString(),
     };
 
     users.push(newUser);
@@ -41,6 +42,32 @@ export const authService = {
 
     const { password: _, ...userWithoutPass } = user;
     localStorage.setItem("current_user", JSON.stringify(userWithoutPass));
+    return userWithoutPass;
+  },
+
+  async updateProfile(updatedData) {
+    await delay(500);
+
+    const currentUser = JSON.parse(localStorage.getItem("current_user"));
+
+    if (!currentUser) {
+      throw new Error("No user logged in");
+    }
+
+    const users = JSON.parse(localStorage.getItem("users_db") || "[]");
+
+    const updatedUsers = users.map((user) =>
+      user.id === currentUser.id ? { ...user, ...updatedData } : user,
+    );
+
+    localStorage.setItem("users_db", JSON.stringify(updatedUsers));
+
+    const updatedUser = updatedUsers.find((user) => user.id === currentUser.id);
+
+    const { password, ...userWithoutPass } = updatedUser;
+
+    localStorage.setItem("current_user", JSON.stringify(userWithoutPass));
+
     return userWithoutPass;
   },
 

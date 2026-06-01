@@ -26,6 +26,11 @@ export function authReducer(state, action) {
         error: action.payload,
         loading: false,
       };
+    case "auth/updateProfile":
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
     case "auth/logout":
       return {
         ...state,
