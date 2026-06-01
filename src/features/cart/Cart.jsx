@@ -41,7 +41,7 @@ function Cart() {
             {/* Heading */}
             <div className="space-y-2">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-                Your Cart
+                My Cart
               </h1>
 
               <p className="text-sm text-gray-500">
@@ -109,57 +109,63 @@ function Cart() {
 
           {/* RIGHT */}
           <div className="min-w-0">
-            <div className="rounded-md bg-black p-4 sm:p-6 text-white lg:sticky lg:top-24">
-              <div className="space-y-6">
-                {/* Delivery */}
-                <div className="space-y-3">
-                  <p className="text-sm text-gray-300">
-                    Add 500 BIRR more for free delivery
-                  </p>
+            <div className="rounded-sm shadow-lg border border-gray-200 transparent p-5 lg:sticky lg:top-24">
+              <div className="space-y-5">
+                {/* Title */}
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Order Summary
+                </h3>
 
-                  <div className="h-2 overflow-hidden rounded-full bg-gray-800">
-                    <div className="h-full w-[70%] bg-primary"></div>
+                {/* Summary */}
+                <div className="space-y-3 text-gray-600">
+                  <div className="flex items-center justify-between">
+                    <span>Subtotal</span>
+                    <span className="font-medium">
+                      ETB {totalPrice.toFixed(2)}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span>Delivery</span>
+                    <span className="font-medium">
+                      ETB {totalPrice > 500 ? "0.00" : "50.00"}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span>Discount</span>
+                    <span className="font-medium">-</span>
                   </div>
                 </div>
 
-                {/* Totals */}
-                <div className="space-y-4 border-t border-gray-800 pt-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm sm:text-base text-gray-400">
-                      {totalPrice}
+                {/* Divider */}
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xl font-bold text-gray-900">
+                      Total
                     </span>
 
-                    <span className="text-xl sm:text-2xl font-bold">
-                      {totalPrice.toFixed(2)}
+                    <span className="text-xl font-bold text-gray-900">
+                      ETB{" "}
+                      {(totalPrice + (totalPrice > 500 ? 0 : 50)).toFixed(2)}
                     </span>
                   </div>
-
-                  <p className="text-sm text-gray-400">
-                    Taxes and shipping calculated at checkout.
-                  </p>
                 </div>
 
                 {/* Checkout */}
                 <Button
                   variant="primary"
-                  size="lg"
-                  className="w-full rounded-md"
+                  size="md"
+                  className="w-full justify-center rounded-sm"
+                  to="/checkout"
                 >
-                  Proceed to Checkout
+                  Checkout
                 </Button>
 
-                {/* Info */}
-                <div className="space-y-3 border-t border-gray-800 pt-6 text-sm text-gray-400">
-                  <div className="flex justify-between gap-3">
-                    <span>Shipping</span>
-                    <span className="text-right">Calculated later</span>
-                  </div>
-
-                  <div className="flex justify-between gap-3">
-                    <span>Support</span>
-                    <span>24/7</span>
-                  </div>
-                </div>
+                {/* Promo */}
+                <button className="text-sm text-gray-500 underline underline-offset-4 hover:text-black transition-colors">
+                  Use a promo code
+                </button>
               </div>
             </div>
           </div>
