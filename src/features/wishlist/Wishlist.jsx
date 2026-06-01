@@ -13,7 +13,7 @@ function Wishlist() {
         {/* Heading */}
         <div className="space-y-2">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-            Your Wishlist
+            My Wishlist
           </h1>
 
           <p className="text-sm text-gray-500">
