@@ -12,6 +12,8 @@ import Signup from "../features/auth/Signup";
 import ProtectedRoute from "../features/auth/ProtectedRoute";
 import { Order } from "../features/order/Order";
 import Wishlist from "../features/wishlist/Wishlist";
+import EditProfile from "../features/user/EditProfile";
+import Checkout from "../features/checkout/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +25,7 @@ export const router = createBrowserRouter([
       { path: "booking", element: <Booking /> },
       { path: "cart", element: <Cart /> },
       { path: "wishlist", element: <Wishlist /> },
+      { path: "checkout", element: <Checkout /> },
       { path: "order", element: <Order /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
@@ -31,6 +34,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "editprofile",
+        element: (
+          <ProtectedRoute>
+            <EditProfile />
           </ProtectedRoute>
         ),
       },
