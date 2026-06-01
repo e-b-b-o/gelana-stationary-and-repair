@@ -3,25 +3,26 @@ import { NavLink } from "react-router-dom";
 function Button({
   children,
   onClick,
-  variant,
-  size,
+  variant = "primary",
+  size = "md",
   to,
-  className,
+  className = "",
   type = "button",
   disabled,
 }) {
   const base =
-    "inline-flex items-center justify-center  font-md transition-colors duration-300";
+    "inline-flex items-center justify-center font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
     primary: "bg-primary text-white hover:opacity-80 border-primary border-2",
     outline:
-      "border-primary text-primary  border-2  hover:bg-primary hover:text-white  hover:border-primary ",
+      "border-primary text-primary border-2 hover:bg-primary hover:text-white hover:border-primary",
     ghost: "text-primary hover:bg-gray-100",
     outlineHero:
       "border border-white text-white backdrop-blur-sm bg-white/5 shadow-[0_0_20px_rgba(255,255,255,0.12)] hover:bg-white hover:text-primary border-2",
     minimal: "border border-gray-200 bg-white hover:bg-gray-50 text-gray-700",
   };
+  
   const sizes = {
     xs: "px-2 py-0.5 text-xs",
     sm: "px-3 py-1 text-sm",
