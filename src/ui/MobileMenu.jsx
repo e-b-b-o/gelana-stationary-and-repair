@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Input from "./Input";
 import Button from "../ui/Button";
 import { XMarkIcon } from "@heroicons/react/16/solid";
@@ -6,70 +6,82 @@ import { useAuth } from "../features/auth/AuthContext";
 
 function MobileMenu({ setIsOpen, isOpen }) {
   const { isAuthenticated  } = useAuth();
-  const navigate = useNavigate();
   return (
-    <aside
-      className={`sm:hidden flex flex-col fixed top-0 left-0 h-full w-[80%] bg-background shadow-lg transform transition-transform duration-300 z-50  gap-2 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
-    >
-
+    <>
       {/* Mobile backdrop overlay */}
+      <div
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
 
-      <div className="flex justify-between  bg-white text-primary p-6 w-full">
-        <div className="flex items-center gap-4 sm:gap-8 min-w-0 ">
-          <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
+      <aside
+        className={`sm:hidden flex flex-col fixed top-0 left-0 h-full w-[80%] max-w-sm bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex justify-between items-center border-b border-gray-100 p-5 w-full">
+          <NavLink to="/" className="font-extrabold text-xl text-primary whitespace-nowrap">
             GelanaTech
           </NavLink>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-2 -mr-2 text-gray-500 hover:text-black transition rounded-full"
+            aria-label="Close Menu"
+          >
+            <XMarkIcon className="w-6 h-6" />
+          </button>
         </div>
-        <Button onClick={() => setIsOpen(false)}>
-          <XMarkIcon className="w-6" />
-        </Button>
-      </div>
-      <div className="flex flex-col divide-y space-y-2 divide-black-100 mt-4 p-6 text-xl">
-        <NavLink
-          to="/"
-          onClick={() => setIsOpen(false)}
-          className="hover:opacity-70"
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/products"
-          onClick={() => setIsOpen(false)}
-          className="hover:opacity-80"
-        >
-          Products
-        </NavLink>
-        <NavLink
-          to="/booking"
-          onClick={() => setIsOpen(false)}
-          className="hover:opacity-80 border-b"
-        >
-          Booking
-        </NavLink>
-      </div>
 
-      {!isAuthenticated && (
-        <div className="flex justify-between items-center gap-4 px-6 text-center mx-auto">
-          <Button
-            to="/login"
-            variant="outline"
-            size="md"
+        <div className="flex flex-col flex-1 py-6 px-5 space-y-4">
+          <NavLink
+            to="/"
             onClick={() => setIsOpen(false)}
+            className="text-lg font-bold text-gray-800 hover:text-primary transition-colors"
           >
-            Log in
-          </Button>
-          OR
-          <Button
-            to="/signup"
-            variant="primary"
-            size="md"
+            Home
+          </NavLink>
+          <NavLink
+            to="/products"
             onClick={() => setIsOpen(false)}
+            className="text-lg font-bold text-gray-800 hover:text-primary transition-colors"
           >
-            Sign up
-          </Button>
+            Products
+          </NavLink>
+          <NavLink
+            to="/booking"
+            onClick={() => setIsOpen(false)}
+            className="text-lg font-bold text-gray-800 hover:text-primary transition-colors"
+          >
+            Booking
+          </NavLink>
         </div>
-      )}
-    </aside>
+
+        {!isAuthenticated && (
+          <div className="p-5 border-t border-gray-100 space-y-3">
+            <Button
+              to="/login"
+              variant="outline"
+              size="md"
+              className="w-full justify-center"
+              onClick={() => setIsOpen(false)}
+            >
+              Log in
+            </Button>
+            <Button
+              to="/signup"
+              variant="primary"
+              size="md"
+              className="w-full justify-center"
+              onClick={() => setIsOpen(false)}
+            >
+              Sign up
+            </Button>
+          </div>
+        )}
+      </aside>
+    </>
   );
 }
 

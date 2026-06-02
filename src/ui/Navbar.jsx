@@ -2,7 +2,7 @@ import { useLocation, NavLink } from "react-router-dom";
 import { ShoppingCartIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import Button from "./Button";
 import MobileMenu from "./MobileMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../features/auth/AuthContext";
 import UserDropdown from "../features/auth/UserDropdown";
 import { useCart } from "../features/cart/CartContext";
@@ -10,33 +10,45 @@ import { useCart } from "../features/cart/CartContext";
 function Navbar() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const isHome = location.pathname === "/";
   const { isAuthenticated } = useAuth();
   const { totalItems } = useCart();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      {isOpen && (
-        <div
-          onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black/5 z-40"
-        />
-      )}
 
       <nav
-        className={`w-full z-50 sm:px-20 sm:py-8 px-6 py-6 flex justify-between items-center ${
-          isHome
+        className={`w-full z-50 transition-all duration-300 ${
+          isHome && !scrolled
             ? "absolute top-0 left-0 bg-transparent text-white"
             : "sticky top-0 bg-white shadow-sm text-black"
         }`}
       >
-        {/* LEFT */}
-        <div className="flex space-x-2  min-w-0">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex justify-between items-center">
+          {/* LEFT */}
+          <div className="flex items-center gap-3 min-w-0">
           {/* Hamburger — mobile only */}
           <div className="sm:hidden shrink-0">
-            <Button onClick={() => setIsOpen(true)}>
-              <Bars3Icon className="w-6" />
-            </Button>
+            <button
+              onClick={() => setIsOpen(true)}
+              className="p-2 -ml-2 text-current hover:opacity-70 transition"
+              aria-label="Open Menu"
+            >
+              <Bars3Icon className="w-6 h-6" />
+            </button>
           </div>
           <NavLink to="/" className="font-extrabold text-xl whitespace-nowrap">
             GelanaTech
@@ -83,6 +95,7 @@ function Navbar() {
               </Button>
             </div>
           )}
+        </div>
         </div>
       </nav>
       <MobileMenu setIsOpen={setIsOpen} isOpen={isOpen} />
