@@ -1,28 +1,34 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { cartReducer, initialState } from "./cartReducer";
+import { useAuth } from "../auth/AuthContext";
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
+  const { user } = useAuth();
+  const cartKey = user ? `cart_${user.id}` : "cart";
+
   const [{ cartItems }, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("cart");
+      const saved = localStorage.getItem(cartKey);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
           dispatch({ type: "cart/init", payload: parsed });
         }
+      } else {
+        dispatch({ type: "cart/init", payload: [] });
       }
     } catch (e) {
-      localStorage.removeItem("cart");
+      localStorage.removeItem(cartKey);
     }
-  }, []);
+  }, [cartKey]);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    localStorage.setItem(cartKey, JSON.stringify(cartItems));
+  }, [cartItems, cartKey]);
 
   // Actions
 

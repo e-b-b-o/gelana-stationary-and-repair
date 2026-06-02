@@ -1,12 +1,14 @@
-import Button from "../../ui/Button";
+import EmptyState from "../../ui/EmptyState";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 export function EmptyWishlist() {
   return (
-    <div className="h-screen flex flex-col justify-center items-center text-center text-primary text-2xl gap-4">
-      <p>!Opps looks like you havent added anything yet</p>
-      <Button variant="primary" to="/products" size="md" className="rounded-sm">
-        Keep Looking
-      </Button>
-    </div>
+    <EmptyState
+      icon={HeartIcon}
+      title="Your wishlist is empty"
+      description="Save items you love here and come back to them anytime."
+      actionText="Explore Products"
+      actionTo="/products"
+    />
   );
 }

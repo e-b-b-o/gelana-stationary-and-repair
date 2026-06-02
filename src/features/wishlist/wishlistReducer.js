@@ -25,6 +25,13 @@ export default function wishlistRaducer(state, action) {
         };
       }
     }
+    case "wishlist/removeMultiple":
+      return {
+        ...state,
+        wishlistItems: state.wishlistItems.filter(
+          (item) => !action.payload.includes(item.id),
+        ),
+      };
     case "wishlist/clear":
       return { ...state, wishlistItems: [] };
     default:

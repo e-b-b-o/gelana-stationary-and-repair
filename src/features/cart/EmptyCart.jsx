@@ -1,12 +1,14 @@
-import Button from "../../ui/Button";
+import EmptyState from "../../ui/EmptyState";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 export function EmptyCart() {
   return (
-    <div className="h-screen flex flex-col justify-center items-center text-center text-primary text-2xl gap-2">
-      <p>!Opps looks like you havent added anything yet</p>
-      <Button variant="primary" to="/products" size="md" className="rounded-sm">
-        Continue Shopping
-      </Button>
-    </div>
+    <EmptyState
+      icon={ShoppingCartIcon}
+      title="Your cart is empty"
+      description="Looks like you haven't added anything to your cart yet. Discover our top-quality stationery and laptop parts!"
+      actionText="Start Shopping"
+      actionTo="/products"
+    />
   );
 }

@@ -1,36 +1,45 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import wishlistRaducer, { initialState } from "./wishlistReducer";
+import { useAuth } from "../auth/AuthContext";
 
 const WishlistContext = createContext();
 
 function WishlistProvider({ children }) {
+  const { user } = useAuth();
+  const wishlistKey = user ? `wishlist_${user.id}` : "wishlist";
   const [{ wishlistItems }, dispatch] = useReducer(
     wishlistRaducer,
     initialState,
   );
 
   useEffect(() => {
-    const saved = localStorage.getItem("wishlist");
+    const saved = localStorage.getItem(wishlistKey);
     try {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
           dispatch({ type: "wishlist/init", payload: parsed });
         }
+      } else {
+        dispatch({ type: "wishlist/init", payload: [] });
       }
-    } catch (e) {
-      localStorage.removeItem("wishlist");
+    } catch {
+      localStorage.removeItem(wishlistKey);
     }
-  }, []);
+  }, [wishlistKey]);
 
   useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlistItems));
-  }, [wishlistItems]);
+    localStorage.setItem(wishlistKey, JSON.stringify(wishlistItems));
+  }, [wishlistItems, wishlistKey]);
 
   //Actions
 
   const toggleWishlist = (wishlistItem) => {
     dispatch({ type: "TOGGLE_WISHLIST", payload: wishlistItem });
+  };
+
+  const removeMultipleItems = (ids) => {
+    dispatch({ type: "wishlist/removeMultiple", payload: ids });
   };
 
   const clearWishlist = () => {
@@ -43,6 +52,7 @@ function WishlistProvider({ children }) {
         toggleWishlist,
         wishlistItems,
         clearWishlist,
+        removeMultipleItems,
       }}
     >
       {children}
@@ -57,4 +67,5 @@ function useWishlist() {
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { WishlistProvider, useWishlist };
