@@ -12,6 +12,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { SkeletonProfileCard, SkeletonStatCard } from "../../ui/Skeleton";
 
+const InfoRow = ({ label, value }) => (
+  <div>
+    <p className="text-xs font-semibold text-muted uppercase tracking-wide">{label}</p>
+    <p className="font-medium text-primary mt-1">{value || <span className="text-gray-300 italic">Not set</span>}</p>
+  </div>
+);
+
 function Profile() {
   const { user, logout } = useAuth();
   const { orders } = useOrder();
@@ -34,13 +41,6 @@ function Profile() {
   const initials = user?.fullname
     ? user.fullname.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
     : user?.email?.charAt(0).toUpperCase() || "U";
-
-  const InfoRow = ({ label, value }) => (
-    <div>
-      <p className="text-xs font-semibold text-muted uppercase tracking-wide">{label}</p>
-      <p className="font-medium text-primary mt-1">{value || <span className="text-gray-300 italic">Not set</span>}</p>
-    </div>
-  );
 
   if (isLoading) {
     return (
