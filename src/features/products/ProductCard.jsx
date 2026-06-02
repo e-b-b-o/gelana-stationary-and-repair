@@ -5,6 +5,7 @@ import { useCart } from "../cart/CartContext";
 import { useState } from "react";
 import { CheckBadgeIcon, HeartIcon } from "@heroicons/react/24/solid";
 import { useWishlist } from "../wishlist/WishlistContext";
+import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
   const [isAdded, setIsAdded] = useState(false);
@@ -19,7 +20,8 @@ function ProductCard({ product }) {
     toggleWishlist(product);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.preventDefault();
     addItem(product);
 
     setIsAdded(true);
@@ -32,8 +34,8 @@ function ProductCard({ product }) {
 
 
   return (
-    <div className="relative space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white">
-      <button className="absolute right-6 top-6" onClick={handleAddWishlist}>
+    <Link to={`/products/${product.id}`} className="block relative space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] bg-white animate-fade-in-up">
+      <button className="absolute right-6 top-6 z-10" onClick={handleAddWishlist}>
         <HeartIcon
           className={
             isWishlisted ? "w-8 h-8 fill-red-500" : "w-8 h-8 text-primary"
@@ -70,7 +72,7 @@ function ProductCard({ product }) {
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 }
 

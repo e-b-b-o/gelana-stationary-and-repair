@@ -8,7 +8,7 @@ import {
 
 function WhyUs() {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12 md:py-16 space-y-6 md:space-y-8 ">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-6 md:space-y-8 animate-fade-in-up">
       <div className="text-center space-y-2">
         <h2 className="text-2xl sm:text-3xl font-bold">Why Choose Us</h2>
         <p className="text-sm md:text-base text-muted max-w-2xl mx-auto">

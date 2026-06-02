@@ -10,7 +10,7 @@ function Hero() {
         }}
       />
       <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/45 to-black/20" />
-      <div className="relative z-10 max-w-6xl mx-auto md:mx-0 px-4 md:px-14 text-white md:text-left text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white md:text-left text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] w-full">
         <div className="max-w-lg">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
             Your Best Stationery Store & Laptop Repair in Town
