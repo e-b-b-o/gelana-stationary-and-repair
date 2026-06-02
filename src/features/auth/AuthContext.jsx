@@ -34,14 +34,17 @@ function AuthProvider({ children }) {
 
   const updateUser = async (updatedData) => {
     dispatch({ type: "auth/start" });
-
     try {
       const user = await authService.updateProfile(updatedData);
       dispatch({ type: "auth/success", payload: user });
     } catch (error) {
       dispatch({ type: "auth/fail", payload: error.message });
-      throw new error();
+      throw error;
     }
+  };
+
+  const changePassword = async (currentPassword, newPassword) => {
+    await authService.changePassword(currentPassword, newPassword);
   };
 
   const logout = () => {
@@ -58,6 +61,7 @@ function AuthProvider({ children }) {
         login,
         register,
         updateUser,
+        changePassword,
         logout,
         isAuthenticated,
       }}

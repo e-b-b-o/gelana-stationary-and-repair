@@ -6,43 +6,50 @@ import Input from "../../ui/Input";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "./AuthContext";
+import Spinner from "../../ui/Spinner";
 
 function Signup() {
   const [fullname, setFullname] = useState("");
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
 
-    if (!password || !email || !fullname) return;
-
-    if (!fullname.trim()) throw new Error("Full name required");
-    if (!email.includes("@")) throw new Error("Valid email required");
-    if (!password.length)
-      throw new Error("Password must be at least 6 characters");
+    if (!fullname.trim()) return setError("Full name is required");
+    if (!email.includes("@")) return setError("Valid email is required");
+    if (password.length < 6) return setError("Password must be at least 6 characters");
+    if (password !== confirmPassword) return setError("Passwords do not match");
 
     try {
+      setIsLoading(true);
       await register(fullname, email, password);
 
       setFullname("");
       setEmail("");
       setPassword("");
+      setConfirmPassword("");
 
       navigate("/");
-    } catch (error) {
-      alert(error.message);
+    } catch (err) {
+      setError(err.message || "Failed to create an account");
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-10 md:py-16">
-      <div className="w-full max-w-6xl bg-white border border-primary/10 shadow-sm overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-175">
+    <section className="h-screen flex items-center justify-center px-4 bg-gray-50 overflow-hidden">
+      <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* LEFT SIDE */}
-          <div className="flex items-center justify-center px-6 py-12 md:px-14">
-            <div className="w-full max-w-md space-y-8">
+          <div className="flex items-center justify-center px-6 py-8 md:px-12">
+            <div className="w-full max-w-sm space-y-6">
               {/* TOP */}
               <div className="space-y-2">
                 <h1 className="text-3xl md:text-4xl font-extrabold text-primary">
@@ -55,9 +62,14 @@ function Signup() {
               </div>
 
               {/* FORM */}
-              <form className="space-y-5" onSubmit={handleSubmit}>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                {error && (
+                  <div className="bg-red-50 text-red-500 p-3 rounded-md text-sm border border-red-100">
+                    {error}
+                  </div>
+                )}
                 {/* FULL NAME */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-primary">
                     Full Name
                   </label>
@@ -65,7 +77,7 @@ function Signup() {
                   <Input
                     placeholder="Gelana Techan"
                     variant="form"
-                    size="lg"
+                    size="md"
                     type="text"
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
@@ -73,7 +85,7 @@ function Signup() {
                 </div>
 
                 {/* EMAIL */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-primary">
                     Email Address
                   </label>
@@ -81,7 +93,7 @@ function Signup() {
                   <Input
                     placeholder="gelanatech@gmail.com"
                     variant="form"
-                    size="lg"
+                    size="md"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -89,7 +101,7 @@ function Signup() {
                 </div>
 
                 {/* PASSWORD */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-primary">
                     Password
                   </label>
@@ -98,7 +110,7 @@ function Signup() {
                     <Input
                       placeholder="Enter your password"
                       variant="form"
-                      size="lg"
+                      size="md"
                       type="password"
                       className="pr-12"
                       value={password}
@@ -109,8 +121,27 @@ function Signup() {
                   </div>
                 </div>
 
+                {/* CONFIRM PASSWORD */}
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium text-primary">
+                    Confirm Password
+                  </label>
+
+                  <div className="relative">
+                    <Input
+                      placeholder="Confirm your password"
+                      variant="form"
+                      size="md"
+                      type="password"
+                      className="pr-12"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
+
                 {/* REMEMBER */}
-                <div className="flex items-center justify-between gap-4 text-sm">
+                <div className="flex items-center justify-between gap-4 text-sm mt-1">
                   <label className="flex items-center gap-2 text-muted cursor-pointer">
                     <input type="checkbox" />
                     Remember me
@@ -128,17 +159,20 @@ function Signup() {
                 <div className="space-y-3 pt-2">
                   <Button
                     variant="primary"
-                    size="lg"
-                    className="w-full justify-center"
+                    size="md"
+                    className="w-full justify-center flex items-center gap-2"
                     type="submit"
+                    disabled={isLoading}
                   >
-                    Sign up
+                    {isLoading && <Spinner size="sm" />}
+                    {isLoading ? "Signing up..." : "Sign up"}
                   </Button>
 
                   <Button
                     variant="outline"
-                    size="lg"
+                    size="md"
                     className="w-full justify-center"
+                    disabled={isLoading}
                   >
                     Continue with Google
                   </Button>
@@ -159,8 +193,8 @@ function Signup() {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="hidden lg:flex bg-primary/5 items-center justify-center  border-l border-primary/10">
-            <div className="h-full w-full overflow-hidden border border-primary/10">
+          <div className="hidden lg:flex bg-primary/5 items-center justify-center relative">
+            <div className="absolute inset-0">
               <img
                 src="/Gemini_Generated_Image_fgzpy2fgzpy2fgzp.png"
                 alt="Login"

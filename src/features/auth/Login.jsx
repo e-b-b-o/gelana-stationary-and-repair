@@ -6,19 +6,25 @@ import Input from "../../ui/Input";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "./AuthContext";
+import Spinner from "../../ui/Spinner";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError("");
 
-    if (!email || !password) return;
+    if (!email) return setError("Email is required");
+    if (!password) return setError("Password is required");
 
     try {
+      setIsLoading(true);
       await login(email, password);
 
       setEmail("");
@@ -26,17 +32,19 @@ function Login() {
 
       navigate("/");
     } catch (error) {
-      alert(error.message);
+      setError(error.message || "Failed to log in");
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 py-10 md:py-16">
-      <div className="w-full max-w-6xl bg-white border border-primary/10 shadow-sm overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-175">
+    <section className="h-screen flex items-center justify-center px-4 bg-gray-50 overflow-hidden">
+      <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* LEFT SIDE */}
-          <div className="flex items-center justify-center px-6 py-12 md:px-14">
-            <div className="w-full max-w-md space-y-8">
+          <div className="flex items-center justify-center px-6 py-8 md:px-12">
+            <div className="w-full max-w-sm space-y-6">
               {/* TOP */}
               <div className="space-y-2">
                 <h1 className="text-3xl md:text-4xl font-extrabold text-primary">
@@ -49,9 +57,14 @@ function Login() {
               </div>
 
               {/* FORM */}
-              <form className="space-y-5" onSubmit={handleSubmit}>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                {error && (
+                  <div className="bg-red-50 text-red-500 p-3 rounded-md text-sm border border-red-100">
+                    {error}
+                  </div>
+                )}
                 {/* EMAIL */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-primary">
                     Email Address
                   </label>
@@ -59,7 +72,7 @@ function Login() {
                   <Input
                     placeholder="gelanatech@gmail.com"
                     variant="form"
-                    size="lg"
+                    size="md"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +80,7 @@ function Login() {
                 </div>
 
                 {/* PASSWORD */}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <label className="text-sm font-medium text-primary">
                     Password
                   </label>
@@ -76,7 +89,7 @@ function Login() {
                     <Input
                       placeholder="Enter your password"
                       variant="form"
-                      size="lg"
+                      size="md"
                       type="password"
                       className="pr-12"
                       value={password}
@@ -88,7 +101,7 @@ function Login() {
                 </div>
 
                 {/* REMEMBER */}
-                <div className="flex items-center justify-between gap-4 text-sm">
+                <div className="flex items-center justify-between gap-4 text-sm mt-1">
                   <label className="flex items-center gap-2 text-muted cursor-pointer">
                     <input type="checkbox" />
                     Remember me
@@ -106,17 +119,20 @@ function Login() {
                 <div className="space-y-3 pt-2">
                   <Button
                     variant="primary"
-                    size="lg"
-                    className="w-full justify-center"
+                    size="md"
+                    className="w-full justify-center flex items-center gap-2"
                     type="submit"
+                    disabled={isLoading}
                   >
-                    Sign In
+                    {isLoading && <Spinner size="sm" />}
+                    {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
 
                   <Button
                     variant="outline"
-                    size="lg"
+                    size="md"
                     className="w-full justify-center"
+                    disabled={isLoading}
                   >
                     Continue with Google
                   </Button>
@@ -137,8 +153,8 @@ function Login() {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="hidden lg:flex bg-primary/5 items-center justify-center  border-l border-primary/10">
-            <div className="h-full w-full overflow-hidden border border-primary/10">
+          <div className="hidden lg:flex bg-primary/5 items-center justify-center relative">
+            <div className="absolute inset-0">
               <img
                 src="/Gemini_Generated_Image_fgzpy2fgzpy2fgzp.png"
                 alt="Login"

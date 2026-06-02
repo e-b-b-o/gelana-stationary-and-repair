@@ -71,6 +71,22 @@ export const authService = {
     return userWithoutPass;
   },
 
+  async changePassword(currentPassword, newPassword) {
+    await delay(300);
+    const currentUser = JSON.parse(localStorage.getItem("current_user"));
+    if (!currentUser) throw new Error("No user logged in");
+
+    const users = JSON.parse(localStorage.getItem("users_db") || "[]");
+    const user = users.find((u) => u.id === currentUser.id);
+    if (!user) throw new Error("User not found");
+    if (user.password !== currentPassword) throw new Error("Current password is incorrect");
+
+    const updatedUsers = users.map((u) =>
+      u.id === currentUser.id ? { ...u, password: newPassword } : u
+    );
+    localStorage.setItem("users_db", JSON.stringify(updatedUsers));
+  },
+
   logout() {
     localStorage.removeItem("current_user");
   },
