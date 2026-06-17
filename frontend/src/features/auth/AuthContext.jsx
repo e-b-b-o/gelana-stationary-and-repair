@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext, useEffect } from "react";
+import { createContext, useReducer, useContext } from "react";
 import { authReducer, initialState } from "./authReducer";
 import { ArrowUpTrayIcon } from "@heroicons/react/16/solid";
 import { authService } from "./authService";
@@ -80,4 +80,5 @@ function useAuth() {
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { AuthProvider, useAuth };
