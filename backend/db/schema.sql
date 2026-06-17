@@ -1,5 +1,4 @@
-// Schema for the eccomerce
-
+-- Schema for the eccomerce
 
 -- USERS TABLE
 
@@ -8,12 +7,11 @@ CREATE TABLE users (
     
     -- basic info
     first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL.
+    last_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
 
     -- security
     password_hash TEXT NOT NULL,
-
 
     -- profile
     phone VARCHAR(20),
@@ -22,7 +20,6 @@ CREATE TABLE users (
     -- role system
     role VARCHAR DEFAULT 'CUSTOMER',
 
-
     -- account status
     is_active BOOLEAN DEFAULT TRUE,
     email_verified BOOLEAN DEFAULT FALSE,
@@ -30,7 +27,7 @@ CREATE TABLE users (
     -- timestamps
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );  
+);  
 
 -- ADDRESS
 
@@ -51,7 +48,6 @@ CREATE TABLE addresses (
     ON DELETE CASCADE
 );
 
-
 -- CATEGORIES
 
 CREATE TABLE categories (
@@ -65,18 +61,18 @@ CREATE TABLE categories (
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
 
-    categories_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
     name VARCHAR NOT NULL,
-    discreption TEXT,
+    description TEXT,
     price DECIMAL(10,2) NOT NULL,
-    stock_quanity INTEGER NOT NULL DEFAULT 0,
+    stock_quantity INTEGER NOT NULL DEFAULT 0,
     image_url TEXT,
     is_active BOOLEAN DEFAULT FALSE,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (categories_id)
+    FOREIGN KEY (category_id)
     REFERENCES categories(id)
 );
 
@@ -106,10 +102,10 @@ CREATE TABLE  cart_items (
     ON DELETE CASCADE,
 
     FOREIGN KEY (product_id)
-    REFERENCES products(id)
+    REFERENCES products(id),
+
+    UNIQUE (cart_id, product_id)
 );
-
-
 
 -- WISHLIST TABLE 
 
@@ -139,9 +135,8 @@ CREATE TABLE wishlist_items (
     FOREIGN KEY (product_id)
     REFERENCES products(id),
 
-    UNIQUE (wishlist_id , product_id)
+    UNIQUE (wishlist_id, product_id)
 );
-
 
   -- ORDERS TABLE
 
@@ -164,7 +159,6 @@ CREATE TABLE orders (
     FOREIGN KEY (address_id)
     REFERENCES addresses(id)
 );
-
 
   -- ORDERS ITEMS
 
@@ -204,5 +198,3 @@ CREATE TABLE reviews (
     FOREIGN KEY (product_id)
     REFERENCES products(id)
 );
-
-
