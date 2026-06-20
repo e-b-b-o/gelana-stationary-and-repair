@@ -1,4 +1,12 @@
+import { ZodError } from "zod";
+
 export default function errorMiddleware(err, req, res, next) {
+  if (err instanceof ZodError) {
+    return res.status(400).json({
+      status: "fail",
+      errors: error.issues,
+    });
+  }
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 
