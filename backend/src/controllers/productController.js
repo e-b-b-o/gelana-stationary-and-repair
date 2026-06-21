@@ -17,3 +17,5 @@ export const getProduct = catchAsync(async (req, res, next) => {
 
   res.json(product);
 });
+
+export const createProduct = catchAsync(async (req, res, next) => {});
