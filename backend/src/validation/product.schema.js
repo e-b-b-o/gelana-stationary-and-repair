@@ -9,3 +9,5 @@ export const createProductSchema = z.object({
   thumbnail_url: z.url(),
   is_active: z.boolean().optional(),
 });
+
+export const updateProductSchema = createProductSchema.partial();
