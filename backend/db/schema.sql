@@ -64,9 +64,9 @@ CREATE TABLE products (
     category_id INTEGER NOT NULL,
     name VARCHAR NOT NULL,
     description TEXT,
-    price DECIMAL(10,2) NOT NULL,
-    stock_quantity INTEGER NOT NULL DEFAULT 0,
-    image_url TEXT,
+    price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
+    stock_quantity INTEGER NOT NULL DEFAULT 0 CHECK (stock_quantity >= 0),
+    thumbnail_url TEXT,
     is_active BOOLEAN DEFAULT FALSE,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -169,7 +169,7 @@ CREATE TABLE order_items (
 
     product_id INTEGER NOT NULL,
 
-    quantity INTEGER NOT NULL,
+    quantity INTEGER NOT NULL CHECK (quantity > 0),
 
     price_at_purchase DECIMAL(10,2) NOT NULL,
 
@@ -198,3 +198,20 @@ CREATE TABLE reviews (
     FOREIGN KEY (product_id)
     REFERENCES products(id)
 );
+
+-- PRODUCT IMAGES
+
+CREATE TABLE product_images (
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+    image_url TEXT NOT NULL,
+    alt_text VARCHAR(255),
+    display_order INTEGER DEFAULT 0
+);
+
+-- PERFORMANCE INDEXES
+
+CREATE INDEX idx_products_category ON products(category_id);
+CREATE INDEX idx_cart_items_cart ON cart_items(cart_id);
+CREATE INDEX idx_orders_user ON orders(user_id);
+CREATE INDEX idx_product_images_product ON product_images(product_id);
