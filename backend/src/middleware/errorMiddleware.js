@@ -4,7 +4,7 @@ export default function errorMiddleware(err, req, res, next) {
   if (err instanceof ZodError) {
     return res.status(400).json({
       status: "fail",
-      errors: error.issues,
+      errors: err.issues,
     });
   }
   err.statusCode = err.statusCode || 500;
