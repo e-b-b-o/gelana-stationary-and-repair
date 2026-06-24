@@ -16,18 +16,30 @@ import {
   updateProductSchema,
 } from "../validation/product.schema.js";
 import { getProductById } from "../services/productService.js";
+import { protect } from "../middleware/authMiddleware.js";
+import { restrictTo } from "../middleware/restrictTo.js";
 
 const router = express.Router();
 
 router
   .route("/")
   .get(getProducts)
-  .post(validationMiddleware(createProductSchema), createNewProduct);
+  .post(
+    protect,
+    restrictTo("ADMIN"),
+    validationMiddleware(createProductSchema),
+    createNewProduct,
+  );
 
 router
   .route("/:id")
   .get(getProductById)
-  .patch(validationMiddleware(updateProductSchema), updateExistingProduct)
-  .delete(removeProduct);
+  .patch(
+    protect,
+    restrictTo("ADMIN"),
+    validationMiddleware(updateProductSchema),
+    updateExistingProduct,
+  )
+  .delete(protect, restrictTo("ADMIN"), removeProduct);
 
 export default router;
