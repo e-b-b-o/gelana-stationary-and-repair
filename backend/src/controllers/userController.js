@@ -7,6 +7,7 @@ import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/AppError.js";
 
 import bcrypt from "bcrypt";
+import { signToken } from "../utils/jwt.js";
 
 export const register = catchAsync(async (req, res, next) => {
   // Check if user already exists
@@ -16,8 +17,18 @@ export const register = catchAsync(async (req, res, next) => {
   }
 
   // Create user
-  // You will handle bcrypt hashing here or inside the userService
+  // hanlded bcrypt inside the userService
   const newUser = await createUser(req.body);
+
+  //generate Token
+  const token = signToken(newUser.id, newUser.role);
+
+  //register cookie
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: false,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
 
   res.status(201).json({
     status: "success",
@@ -43,6 +54,13 @@ export const login = catchAsync(async (req, res, next) => {
   }
 
   // You will generate and send the JWT cookie here
+  const token = signToken(user.id, user.role);
+
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: false,
+    maxAge: 7 * 24 * 60 * 60 * 100,
+  });
 
   // Prevent sending password hash back to the client
   delete user.password_hash;
@@ -57,7 +75,8 @@ export const login = catchAsync(async (req, res, next) => {
 export const getProfile = catchAsync(async (req, res, next) => {
   // In the future, the user ID will come from the decoded JWT via req.user.id
   // For now, we'll just mock it and use params for testing
-  const userId = req.params.id;
+
+  const userId = req.user.id;
 
   const user = await getUserById(userId);
   if (!user) {
@@ -69,3 +88,14 @@ export const getProfile = catchAsync(async (req, res, next) => {
     data: user,
   });
 });
+
+export const logout = (req, res) => {
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(200).json({
+    status: "success",
+  });
+};
