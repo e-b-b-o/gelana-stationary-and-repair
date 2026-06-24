@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import productRoutes from "./routes/productRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
 import productImageRoutes from "./routes/productImageRoutes.js";
@@ -10,6 +11,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/products", productRoutes);
