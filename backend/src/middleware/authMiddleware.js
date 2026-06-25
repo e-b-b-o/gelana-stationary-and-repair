@@ -1,6 +1,6 @@
-import AppError from "../utils/AppError";
-import catchAsync from "../utils/catchAsync";
-import { verifyToken } from "../utils/jwt";
+import AppError from "../utils/AppError.js";
+import catchAsync from "../utils/catchAsync.js";
+import { verifyToken } from "../utils/jwt.js";
 
 export const protect = catchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
