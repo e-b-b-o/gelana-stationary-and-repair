@@ -1,11 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import products from "../../data/products";
 import ProductCard from "./ProductCard";
 import ProductFilters from "./ProductFilters";
 import { SkeletonProductCard } from "../../ui/Skeleton";
+import { getProducts } from "./productService";
 
 function Products() {
+  const [products, setProducts] = useState([]);
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const q = searchParams.get("q")?.toLowerCase() || "";
@@ -15,6 +16,17 @@ function Products() {
     setIsLoading(true);
     const timer = setTimeout(() => setIsLoading(false), 400);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const data = await getProducts();
+      console.log(data);
+
+      setProducts(data);
+    }
+
+    loadProducts();
   }, []);
 
   const filteredProducts = products.filter((product) => {
@@ -43,7 +55,9 @@ function Products() {
       ) : filteredProducts.length === 0 ? (
         <div className="text-center py-16 space-y-2">
           <p className="text-gray-500 text-lg font-medium">No products found</p>
-          <p className="text-gray-400 text-sm">Try adjusting your search or filter criteria.</p>
+          <p className="text-gray-400 text-sm">
+            Try adjusting your search or filter criteria.
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
