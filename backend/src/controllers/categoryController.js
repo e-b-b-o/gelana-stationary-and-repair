@@ -3,7 +3,7 @@ import {
   getAllCategories,
   getCategoryById,
   updateExistingCategory,
-  deleteCategory as deleteCategoryService
+  deleteCategory as deleteCategoryService,
 } from "../services/categoriesService.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/AppError.js";
