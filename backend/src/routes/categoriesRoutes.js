@@ -4,12 +4,12 @@ import {
   getCategory,
   createCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
 } from "../controllers/categoryController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import {
   createCategorySchema,
-  updateCategorySchema
+  updateCategorySchema,
 } from "../validation/category.schema.js";
 
 const router = express.Router();
