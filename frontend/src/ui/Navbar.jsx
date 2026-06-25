@@ -1,7 +1,7 @@
 import { useLocation, NavLink } from "react-router-dom";
 import { ShoppingCartIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import Button from "./Button";
-import MobileMenu from "../../public/MobileMenu";
+import MobileMenu from "./MobileMenu";
 import { useState, useEffect } from "react";
 import { useAuth } from "../features/auth/AuthContext";
 import UserDropdown from "../features/auth/UserDropdown";
