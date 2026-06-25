@@ -15,7 +15,6 @@ import {
   createProductSchema,
   updateProductSchema,
 } from "../validation/product.schema.js";
-import { getProductById } from "../services/productService.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { restrictTo } from "../middleware/restrictTo.js";
 
@@ -33,7 +32,7 @@ router
 
 router
   .route("/:id")
-  .get(getProductById)
+  .get(getProduct)
   .patch(
     protect,
     restrictTo("ADMIN"),
