@@ -8,6 +8,7 @@ export const createProductSchema = z.object({
   stock_quantity: z.number().int().min(0),
   thumbnail_url: z.url(),
   is_active: z.boolean().optional(),
+  rating: z.number().min(0).max(5).optional(),
 });
 
 export const updateProductSchema = createProductSchema.partial();

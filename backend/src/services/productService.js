@@ -21,11 +21,12 @@ export async function createProduct(product) {
     stock_quantity,
     thumbnail_url,
     is_active,
+    rating = 0.0,
   } = product;
 
   const result = await pool.query(
     `INSERT INTO products (
-    category_id , name , description , price , stock_quantity , thumbnail_url , is_active) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
+    category_id , name , description , price , stock_quantity , thumbnail_url , is_active, rating) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
     [
       category_id,
       name,
@@ -34,6 +35,7 @@ export async function createProduct(product) {
       stock_quantity,
       thumbnail_url,
       is_active,
+      rating,
     ],
   );
   return result.rows[0];
@@ -48,6 +50,7 @@ export async function updateProduct(id, productData) {
     stock_quantity,
     thumbnail_url,
     is_active,
+    rating,
   } = productData;
 
   const result = await pool.query(
@@ -59,8 +62,9 @@ export async function updateProduct(id, productData) {
     stock_quantity = $5,
     thumbnail_url = $6,
     is_active = $7,
+    rating = COALESCE($8, rating),
     updated_at =  CURRENT_TIMESTAMP
-    WHERE id = $8
+    WHERE id = $9
     RETURNING *
     `,
     [
@@ -71,6 +75,7 @@ export async function updateProduct(id, productData) {
       stock_quantity,
       thumbnail_url,
       is_active,
+      rating,
       id,
     ],
   );
