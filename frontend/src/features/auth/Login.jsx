@@ -25,7 +25,7 @@ function Login() {
 
     try {
       setIsLoading(true);
-      await login(email, password);
+      await login({ email, password });
 
       setEmail("");
       setPassword("");

@@ -9,7 +9,8 @@ import { useAuth } from "./AuthContext";
 import Spinner from "../../ui/Spinner";
 
 function Signup() {
-  const [fullname, setFullname] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,16 +23,24 @@ function Signup() {
     e.preventDefault();
     setError("");
 
-    if (!fullname.trim()) return setError("Full name is required");
+    if (!firstName.trim()) return setError("First name is required");
+    if (!lastName.trim()) return setError("Last name is required");
     if (!email.includes("@")) return setError("Valid email is required");
-    if (password.length < 6) return setError("Password must be at least 6 characters");
+    if (password.length < 6)
+      return setError("Password must be at least 6 characters");
     if (password !== confirmPassword) return setError("Passwords do not match");
 
     try {
       setIsLoading(true);
-      await register(fullname, email, password);
+      await register({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+      });
 
-      setFullname("");
+      setFirstName("");
+      setLastName("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
@@ -74,14 +83,24 @@ function Signup() {
                     Full Name
                   </label>
 
-                  <Input
-                    placeholder="Gelana Techan"
-                    variant="form"
-                    size="md"
-                    type="text"
-                    value={fullname}
-                    onChange={(e) => setFullname(e.target.value)}
-                  />
+                  <div className="space-y-1.5">
+                    <Input
+                      placeholder="Gelana Techan"
+                      variant="form"
+                      size="md"
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    <Input
+                      placeholder="Techan"
+                      variant="form"
+                      size="md"
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 {/* EMAIL */}

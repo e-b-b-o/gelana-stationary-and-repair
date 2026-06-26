@@ -1,93 +1,48 @@
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { api } from "../../lib/axios.js";
 
-export const authService = {
-  async register(fullname, email, password) {
-    await delay(500);
-    const users = JSON.parse(localStorage.getItem("users_db") || "[]");
+async function register(userData) {
+  const response = await api.post("/auth/register", userData);
 
-    if (users.find((u) => u.email === email)) {
-      throw new Error("Email already exists");
-    }
+  return response.data;
+}
 
-    const newUser = {
-      id: crypto.randomUUID(),
-      fullname,
-      email,
-      password,
-      phone: "",
-      country: "",
-      city: "",
-      address: "",
-      postalCode: "",
-      createdAt: new Date().toISOString(),
-    };
+async function login(credentials) {
+  const response = await api.post("/auth/login", credentials);
 
-    users.push(newUser);
-    localStorage.setItem("users_db", JSON.stringify(users));
+  return response.data;
+}
 
-    const { password: _, ...userWithoutPass } = newUser;
-    localStorage.setItem("current_user", JSON.stringify(userWithoutPass));
-    return userWithoutPass;
-  },
+async function logout() {
+  const response = await api.post("/auth/logout");
 
-  async login(email, password) {
-    await delay(500);
+  return response.data;
+}
 
-    const users = JSON.parse(localStorage.getItem("users_db") || "[]");
-    const user = users.find(
-      (u) => u.email === email && u.password === password,
-    );
+async function getProfile() {
+  const response = await api.get("/auth/profile");
 
-    if (!user) throw new Error("Invalid Credentials");
+  return response.data;
+}
 
-    const { password: _, ...userWithoutPass } = user;
-    localStorage.setItem("current_user", JSON.stringify(userWithoutPass));
-    return userWithoutPass;
-  },
+async function updateProfile(updatedData) {
+  const response = await api.patch("/auth/profile", updatedData);
 
-  async updateProfile(updatedData) {
-    await delay(500);
+  return response.data;
+}
 
-    const currentUser = JSON.parse(localStorage.getItem("current_user"));
+async function changePassword(passwordData) {
+  const response = await api.patch("/auth/change-password", passwordData);
 
-    if (!currentUser) {
-      throw new Error("No user logged in");
-    }
+  return response.data;
+}
 
-    const users = JSON.parse(localStorage.getItem("users_db") || "[]");
-
-    const updatedUsers = users.map((user) =>
-      user.id === currentUser.id ? { ...user, ...updatedData } : user,
-    );
-
-    localStorage.setItem("users_db", JSON.stringify(updatedUsers));
-
-    const updatedUser = updatedUsers.find((user) => user.id === currentUser.id);
-
-    const { password, ...userWithoutPass } = updatedUser;
-
-    localStorage.setItem("current_user", JSON.stringify(userWithoutPass));
-
-    return userWithoutPass;
-  },
-
-  async changePassword(currentPassword, newPassword) {
-    await delay(300);
-    const currentUser = JSON.parse(localStorage.getItem("current_user"));
-    if (!currentUser) throw new Error("No user logged in");
-
-    const users = JSON.parse(localStorage.getItem("users_db") || "[]");
-    const user = users.find((u) => u.id === currentUser.id);
-    if (!user) throw new Error("User not found");
-    if (user.password !== currentPassword) throw new Error("Current password is incorrect");
-
-    const updatedUsers = users.map((u) =>
-      u.id === currentUser.id ? { ...u, password: newPassword } : u
-    );
-    localStorage.setItem("users_db", JSON.stringify(updatedUsers));
-  },
-
-  logout() {
-    localStorage.removeItem("current_user");
-  },
+const authService = {
+  register,
+  login,
+  logout,
+  getProfile,
+  updateProfile,
+  changePassword,
 };
+
+export default authService;

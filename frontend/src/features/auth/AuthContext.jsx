@@ -1,18 +1,18 @@
 import { createContext, useReducer, useContext } from "react";
 import { authReducer, initialState } from "./authReducer";
 import { ArrowUpTrayIcon } from "@heroicons/react/16/solid";
-import { authService } from "./authService";
+import authService from "./authService.js";
 
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const register = async (fullname, email, password) => {
+  const register = async (userData) => {
     dispatch({ type: "auth/start" });
 
     try {
-      const user = await authService.register(fullname, email, password);
+      const user = await authService.register(userData);
       dispatch({ type: "auth/success", payload: user });
     } catch (error) {
       dispatch({ type: "auth/fail", payload: error.message });
@@ -21,10 +21,10 @@ function AuthProvider({ children }) {
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (credentials) => {
     dispatch({ type: "auth/start" });
     try {
-      const user = await authService.login(email, password);
+      const user = await authService.login(credentials);
       dispatch({ type: "auth/success", payload: user });
     } catch (error) {
       dispatch({ type: "auth/fail", payload: error.message });
@@ -43,8 +43,8 @@ function AuthProvider({ children }) {
     }
   };
 
-  const changePassword = async (currentPassword, newPassword) => {
-    await authService.changePassword(currentPassword, newPassword);
+  const changePassword = async (passwordData) => {
+    await authService.changePassword(passwordData);
   };
 
   const logout = () => {
