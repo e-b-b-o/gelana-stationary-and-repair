@@ -18,6 +18,16 @@ import Wishlist from "../features/wishlist/Wishlist";
 import EditProfile from "../features/user/EditProfile";
 import Checkout from "../features/checkout/Checkout";
 
+// Admin Imports
+import AdminRoute from "../features/admin/AdminRoute";
+import AdminLayout from "../features/admin/AdminLayout";
+import Dashboard from "../features/admin/dashboard/Dashboard";
+import ProductsManagement from "../features/admin/products/ProductsManagement";
+import CategoriesManagement from "../features/admin/categories/CategoriesManagement";
+import OrdersManagement from "../features/admin/orders/OrdersManagement";
+import UsersManagement from "../features/admin/users/UsersManagement";
+import AdminSettings from "../features/admin/settings/AdminSettings";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -65,6 +75,22 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+    ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
+    ),
+    children: [
+      { index: true, element: <Dashboard /> },
+      { path: "products", element: <ProductsManagement /> },
+      { path: "categories", element: <CategoriesManagement /> },
+      { path: "orders", element: <OrdersManagement /> },
+      { path: "users", element: <UsersManagement /> },
+      { path: "settings", element: <AdminSettings /> },
     ],
   },
   {
