@@ -13,7 +13,14 @@ export const getProductImages = catchAsync(async (req, res, next) => {
 });
 
 export const addProductImage = catchAsync(async (req, res, next) => {
-  const image = await addImage(req.params.productId, req.body);
+  if (!req.file) {
+    return next(new AppError("Image file is required", 400));
+  }
+  
+  const image_url = `/uploads/products/${req.file.filename}`;
+  const imageData = { ...req.body, image_url };
+  
+  const image = await addImage(req.params.productId, imageData);
   res.status(201).json(image);
 });
 

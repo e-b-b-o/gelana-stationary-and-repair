@@ -6,6 +6,7 @@ import {
   deleteImage
 } from "../controllers/productImageController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
+import { uploadProductImage } from "../middleware/uploadMiddleware.js";
 import {
   createProductImageSchema,
   updateProductImageSchema
@@ -17,7 +18,7 @@ const router = express.Router({ mergeParams: true });
 router
   .route("/")
   .get(getProductImages)
-  .post(validationMiddleware(createProductImageSchema), addProductImage);
+  .post(uploadProductImage.single('image'), validationMiddleware(createProductImageSchema), addProductImage);
 
 router
   .route("/:id")
