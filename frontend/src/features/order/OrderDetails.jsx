@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useOrder } from "./OrderContext";
 import Button from "../../ui/Button";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export default function OrderDetails() {
   const { id } = useParams();
@@ -84,7 +85,7 @@ export default function OrderDetails() {
             {order.items.map((item) => (
               <div key={item.id} className="flex items-center gap-4 py-2">
                 <img
-                  src={item.image}
+                  src={getImageUrl(item.image)}
                   alt={item.title}
                   className="w-16 h-16 object-cover rounded bg-gray-50"
                 />

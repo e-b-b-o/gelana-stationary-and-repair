@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CheckBadgeIcon, HeartIcon } from "@heroicons/react/24/solid";
 import { useWishlist } from "../wishlist/WishlistContext";
 import { Link } from "react-router-dom";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 function ProductCard({ product }) {
   const [isAdded, setIsAdded] = useState(false);
@@ -43,7 +44,7 @@ function ProductCard({ product }) {
         />
       </button>
       <img
-        src={product.image}
+        src={getImageUrl(product.image)}
         alt={product.name}
         className="h-60 w-full object-cover rounded-sm"
       />

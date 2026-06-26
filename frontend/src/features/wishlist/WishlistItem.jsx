@@ -10,6 +10,8 @@ import { useWishlist } from "./WishlistContext";
 import { useCart } from "../cart/CartContext";
 import { useState } from "react";
 
+import { getImageUrl } from "../../utils/getImageUrl";
+
 function WishlistItem({ product, isSelected = false, onToggleSelect }) {
   const { toggleWishlist } = useWishlist();
   const { addItem } = useCart();
@@ -44,7 +46,7 @@ function WishlistItem({ product, isSelected = false, onToggleSelect }) {
       {/* Product Image */}
       <div className="h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-md border border-gray-100 bg-gray-50">
         <img
-          src={product.image}
+          src={getImageUrl(product.image)}
           alt={product.name}
           className="h-full w-full object-cover"
         />

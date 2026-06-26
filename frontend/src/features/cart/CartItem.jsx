@@ -9,6 +9,8 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import Button from "../../ui/Button";
 import { useCart } from "./CartContext";
 
+import { getImageUrl } from "../../utils/getImageUrl";
+
 function CartItem({ product, selectedIds, handleToggleSelect }) {
   const { increaseQuantity, decreaseQuantity, removeItem } = useCart();
   return (
@@ -34,7 +36,7 @@ function CartItem({ product, selectedIds, handleToggleSelect }) {
       {/* Product Image */}
       <div className="h-20 w-20 sm:h-24 sm:w-24 shrink-0 overflow-hidden rounded-md border border-gray-100 bg-gray-50">
         <img
-          src={product.image}
+          src={getImageUrl(product.image)}
           alt={product.name}
           className="h-full w-full object-cover"
         />

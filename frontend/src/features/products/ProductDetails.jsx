@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ShoppingCartIcon, HeartIcon } from "@heroicons/react/24/outline";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, StarIcon } from "@heroicons/react/24/solid";
 import Button from "../../ui/Button";
 import products from "../../data/products";
 import { useCart } from "../cart/CartContext";
 import { useWishlist } from "../wishlist/WishlistContext";
 import { formatCurrency } from "../../utils/formatCurrency";
+import { getImageUrl } from "../../utils/getImageUrl";
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -89,7 +90,7 @@ export default function ProductDetails() {
           {/* LEFT: IMAGE */}
         <div className="bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center p-4 sm:p-6 min-h-[240px] sm:min-h-[300px] lg:min-h-[400px]">
           <img
-            src={product.image}
+            src={getImageUrl(product.image)}
             alt={product.name}
             className="max-w-full max-h-[360px] object-contain drop-shadow-lg"
           />
@@ -105,6 +106,14 @@ export default function ProductDetails() {
           <h1 className="text-xl sm:text-2xl font-extrabold text-primary leading-tight">
             {product.name}
           </h1>
+
+          {/* Rating */}
+          {(product.rating !== undefined && product.rating !== null) && (
+            <div className="flex items-center gap-1.5 pt-1">
+              <StarIcon className="w-5 h-5 text-amber-400" />
+              <span className="font-bold text-sm text-primary">{product.rating}</span>
+            </div>
+          )}
 
           {/* Price */}
           <div className="text-2xl font-extrabold text-primary">
@@ -211,7 +220,7 @@ export default function ProductDetails() {
               >
                 <div className="bg-gray-50 flex items-center justify-center p-4 h-36 group-hover:bg-gray-100 transition-colors">
                   <img
-                    src={related.image}
+                    src={getImageUrl(related.image)}
                     alt={related.name}
                     className="max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                   />
