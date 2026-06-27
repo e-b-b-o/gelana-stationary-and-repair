@@ -111,6 +111,16 @@ function UserDropdown() {
                 <WrenchScrewdriverIcon className="w-5 h-5" />
                 Bookings
               </NavLink>
+              {user?.role === "ADMIN" && (
+                <NavLink
+                  to="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 px-5 py-3 hover:bg-primary/5 transition text-primary text-sm"
+                >
+                  <WrenchScrewdriverIcon className="w-5 h-5" />
+                  Admin
+                </NavLink>
+              )}
             </div>
 
             {/* LOGOUT */}
