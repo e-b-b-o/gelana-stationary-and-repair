@@ -45,7 +45,7 @@ function Signup() {
       setPassword("");
       setConfirmPassword("");
 
-      navigate("/");
+      navigate("/products");
     } catch (err) {
       setError(err.message || "Failed to create an account");
     } finally {

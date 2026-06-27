@@ -14,6 +14,7 @@ function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -25,12 +26,16 @@ function Login() {
 
     try {
       setIsLoading(true);
-      await login({ email, password });
+      const user = await login({ email, password });
+      console.log(user);
 
       setEmail("");
       setPassword("");
-
-      navigate("/");
+      if (user.role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       setError(error.message || "Failed to log in");
     } finally {
