@@ -1,6 +1,5 @@
 export const initialState = {
-  user: JSON.parse(localStorage.getItem("current_user")) || null,
-
+  user: null,
   loading: false,
   error: null,
 };

@@ -1,4 +1,4 @@
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useEffect } from "react";
 import { authReducer, initialState } from "./authReducer";
 import { ArrowUpTrayIcon } from "@heroicons/react/16/solid";
 import authService from "./authService.js";
@@ -26,6 +26,7 @@ function AuthProvider({ children }) {
     try {
       const user = await authService.login(credentials);
       dispatch({ type: "auth/success", payload: user });
+      return user;
     } catch (error) {
       dispatch({ type: "auth/fail", payload: error.message });
       throw error;
@@ -51,6 +52,21 @@ function AuthProvider({ children }) {
     authService.logout();
     dispatch({ type: "auth/logout" });
   };
+
+  useEffect(() => {
+    async function checkAuth() {
+      dispatch({ type: "auth/start" });
+      try {
+        const user = await authService.getMe();
+        console.log("Authenticated user:", user);
+        dispatch({ type: "auth/success", payload: user });
+      } catch (error) {
+        dispatch({ type: "auth/logout" });
+      }
+    }
+
+    checkAuth();
+  }, []);
 
   const isAuthenticated = state.user !== null;
 
