@@ -15,7 +15,6 @@ function ProductCard({ product }) {
 
   const isWishlisted = wishlistItems.some((item) => item.id === product.id);
 
-
   const handleAddWishlist = (e) => {
     e.preventDefault();
     toggleWishlist(product);
@@ -32,11 +31,15 @@ function ProductCard({ product }) {
     }, 2000);
   };
 
-
-
   return (
-    <Link to={`/products/${product.id}`} className="block relative space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] bg-white animate-fade-in-up">
-      <button className="absolute right-6 top-6 z-10" onClick={handleAddWishlist}>
+    <Link
+      to={`/products/${product.id}`}
+      className="block relative space-y-3 p-4 rounded-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] bg-white animate-fade-in-up"
+    >
+      <button
+        className="absolute right-6 top-6 z-10"
+        onClick={handleAddWishlist}
+      >
         <HeartIcon
           className={
             isWishlisted ? "w-8 h-8 fill-red-500" : "w-8 h-8 text-primary"
@@ -51,7 +54,9 @@ function ProductCard({ product }) {
       <div>
         <h3 className="font-bold text-base">{product.name}</h3>
         <p className="text-muted text-xs uppercase">{product.category}</p>
-        <p className="font-bold text-base">{formatCurrency(product.price)}</p>
+        <p className="font-bold text-base">
+          {formatCurrency(parseInt(product.price))}
+        </p>
         <span className="font-semibold text-sm">
           {product.rating}
           <StarIcon className="h-4.5 text-amber-500 inline ml-1 " />

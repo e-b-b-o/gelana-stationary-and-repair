@@ -1,10 +1,21 @@
 import ProductCard from "./ProductCard";
 import products from "../../data/products";
+import { useEffect, useState } from "react";
+import { getProducts } from "./productService";
 
 function FeaturedProducts() {
-  const featuredProducts = products.filter((product) => product.featured);
-  const limitedProducts = featuredProducts.slice(0, 4);
+  const [featuredProducts, setFeaturedProducts] = useState([]);
 
+  useEffect(() => {
+    async function loadProducts() {
+      const data = await getProducts();
+
+      const featured = data.slice(0, 4);
+      setFeaturedProducts(featured);
+    }
+
+    loadProducts();
+  }, []);
   return (
     <section className="space-y-6 md:space-y-8 max-w-6xl mx-auto py-16">
       <div className="text-center">
@@ -14,7 +25,7 @@ function FeaturedProducts() {
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {limitedProducts.map((product) => (
+        {featuredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

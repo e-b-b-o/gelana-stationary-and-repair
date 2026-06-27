@@ -1,13 +1,45 @@
 import { pool } from "../../db/connection.js";
 
 export async function getAllProducts() {
-  const result = await pool.query("SELECT * FROM products");
+  const result = await pool.query(`
+    SELECT 
+        p.id, 
+        p.name, 
+        p.description, 
+        p.price, 
+        p.stock_quantity AS stock, 
+        p.thumbnail_url AS image, 
+        p.is_active, 
+        p.rating,
+        p.category_id,
+        c.name AS category
+    FROM products p
+    LEFT JOIN categories c ON p.category_id = c.id
+  `);
 
   return result.rows;
 }
 
 export async function getProductById(id) {
-  const result = await pool.query("SELECT * FROM products WHERE id = $1", [id]);
+  const result = await pool.query(
+    `
+    SELECT 
+        p.id, 
+        p.name, 
+        p.description, 
+        p.price, 
+        p.stock_quantity AS stock, 
+        p.thumbnail_url AS image, 
+        p.is_active, 
+        p.rating,
+        p.category_id,
+        c.name AS category
+    FROM products p
+    LEFT JOIN categories c ON p.category_id = c.id 
+    WHERE p.id = $1
+    `,
+    [id]
+  );
 
   return result.rows[0];
 }

@@ -21,7 +21,6 @@ function Products() {
   useEffect(() => {
     async function loadProducts() {
       const data = await getProducts();
-      console.log(data);
 
       setProducts(data);
     }
