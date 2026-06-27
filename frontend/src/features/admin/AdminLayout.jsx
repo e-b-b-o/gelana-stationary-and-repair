@@ -9,6 +9,7 @@ import {
   CubeIcon,
 } from "@heroicons/react/24/outline";
 import { useAuth } from "../auth/AuthContext";
+import Button from "../../ui/Button";
 
 const navigation = [
   { name: "Dashboard", to: "/admin", end: true, icon: Squares2X2Icon },
@@ -37,7 +38,7 @@ export default function AdminLayout() {
             Gelana Admin
           </span>
         </div>
-        
+
         {/* User Info Section (Inspired by screenshot) */}
         <div className="px-6 py-4 flex items-center gap-3 border-b border-gray-100">
           <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
@@ -47,9 +48,7 @@ export default function AdminLayout() {
             <p className="text-sm font-bold truncate">
               {user?.first_name} {user?.last_name}
             </p>
-            <p className="text-xs text-muted truncate">
-              {user?.email}
-            </p>
+            <p className="text-xs text-muted truncate">{user?.email}</p>
           </div>
         </div>
 
@@ -75,7 +74,7 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        
+
         <div className="p-4 border-t border-gray-200">
           <button
             onClick={handleLogout}
@@ -99,6 +98,9 @@ export default function AdminLayout() {
               {window.location.pathname.split("/").pop() || "Dashboard"}
             </span>
           </div>
+          <Button variants="primary" size="sm" to="/">
+            User Page
+          </Button>
         </header>
 
         {/* PAGE CONTENT */}
