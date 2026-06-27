@@ -4,6 +4,7 @@ import {
   login,
   getProfile,
   logout,
+  getMe,
 } from "../controllers/userController.js";
 import validationMiddleware from "../middleware/validationMiddleware.js";
 import {
@@ -18,6 +19,7 @@ const router = express.Router();
 router.post("/register", validationMiddleware(registerUserSchema), register);
 router.post("/login", validationMiddleware(loginUserSchema), login);
 router.post("/logout", logout);
+router.get("/me", protect, getMe);
 
 // Protected routes (You will add authMiddleware here later)
 router.get("/:id/profile", protect, getProfile);

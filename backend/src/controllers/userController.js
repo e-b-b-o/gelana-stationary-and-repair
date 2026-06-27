@@ -30,6 +30,14 @@ export const register = catchAsync(async (req, res, next) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
+  const cookieOptions = {
+    httpOnly: true,
+    secure: (process.env.NODE_ENV = "production"),
+    sameSite: "lax",
+  };
+
+  res.cookie("jwt", token, cookieOptions);
+
   res.status(201).json({
     status: "success",
     data: newUser,
@@ -56,11 +64,13 @@ export const login = catchAsync(async (req, res, next) => {
   // You will generate and send the JWT cookie here
   const token = signToken(user.id, user.role);
 
-  res.cookie("jwt", token, {
+  const cookieOptions = {
     httpOnly: true,
-    secure: false,
-    maxAge: 7 * 24 * 60 * 60 * 100,
-  });
+    secure: (process.env.NODE_ENV = "production"),
+    sameSite: "lax",
+  };
+
+  res.cookie("jwt", token, cookieOptions);
 
   // Prevent sending password hash back to the client
   delete user.password_hash;
@@ -97,5 +107,12 @@ export const logout = (req, res) => {
 
   res.status(200).json({
     status: "success",
+  });
+};
+
+export const getMe = (req, res) => {
+  res.json({
+    status: "success",
+    data: req.user,
   });
 };
