@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import AppProviders from "./AppProviders";
 
 import Home from "../features/home/Home";
 import Products from "../features/products/Products";
@@ -30,71 +31,76 @@ import AdminSettings from "../features/admin/settings/AdminSettings";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Layout />,
+    element: <AppProviders />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "products", element: <Products /> },
-      { path: "products/:id", element: <ProductDetails /> },
-      { path: "booking", element: <Booking /> },
-      { path: "cart", element: <Cart /> },
-      { path: "wishlist", element: <Wishlist /> },
-      { path: "checkout", element: <Checkout /> },
-      { path: "order/confirmation", element: <OrderConfirmation /> },
       {
-        path: "orders",
-        element: (
-          <ProtectedRoute>
-            <Orders />
-          </ProtectedRoute>
-        ),
+        path: "/",
+        element: <Layout />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "products", element: <Products /> },
+          { path: "products/:id", element: <ProductDetails /> },
+          { path: "booking", element: <Booking /> },
+          { path: "cart", element: <Cart /> },
+          { path: "wishlist", element: <Wishlist /> },
+          { path: "checkout", element: <Checkout /> },
+          { path: "order/confirmation", element: <OrderConfirmation /> },
+          {
+            path: "orders",
+            element: (
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "order/:id",
+            element: (
+              <ProtectedRoute>
+                <OrderDetails />
+              </ProtectedRoute>
+            ),
+          },
+          { path: "login", element: <Login /> },
+          { path: "signup", element: <Signup /> },
+          {
+            path: "profile",
+            element: (
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "editprofile",
+            element: (
+              <ProtectedRoute>
+                <EditProfile />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
       {
-        path: "order/:id",
+        path: "/admin",
         element: (
-          <ProtectedRoute>
-            <OrderDetails />
-          </ProtectedRoute>
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
         ),
-      },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
-      {
-        path: "profile",
-        element: (
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        ),
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: "products", element: <ProductsManagement /> },
+          { path: "categories", element: <CategoriesManagement /> },
+          { path: "orders", element: <OrdersManagement /> },
+          { path: "users", element: <UsersManagement /> },
+          { path: "settings", element: <AdminSettings /> },
+        ],
       },
       {
-        path: "editprofile",
-        element: (
-          <ProtectedRoute>
-            <EditProfile />
-          </ProtectedRoute>
-        ),
+        path: "*",
+        element: <PageNotFound />,
       },
     ],
-  },
-  {
-    path: "/admin",
-    element: (
-      <AdminRoute>
-        <AdminLayout />
-      </AdminRoute>
-    ),
-    children: [
-      { index: true, element: <Dashboard /> },
-      { path: "products", element: <ProductsManagement /> },
-      { path: "categories", element: <CategoriesManagement /> },
-      { path: "orders", element: <OrdersManagement /> },
-      { path: "users", element: <UsersManagement /> },
-      { path: "settings", element: <AdminSettings /> },
-    ],
-  },
-  {
-    path: "*",
-    element: <PageNotFound />,
   },
 ]);
