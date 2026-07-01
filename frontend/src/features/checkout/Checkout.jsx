@@ -22,9 +22,7 @@ const INIT_CONTACT = {
   email: "",
 };
 const INIT_DELIVERY = {
-  country: "",
-  city: "",
-  address: "",
+  addressId: "",
   deliveryMethod: "",
   notes: "",
 };
@@ -61,8 +59,8 @@ export default function Checkout() {
     ? `${contact.firstName} ${contact.lastName} • ${contact.phoneCode} ${contact.phone} • ${contact.email}`
     : null;
 
-  const deliverySummary = delivery.address
-    ? `${delivery.address}, ${delivery.city}, ${delivery.country} • ${
+  const deliverySummary = delivery.addressId
+    ? `Selected Address • ${
         DELIVERY_OPTIONS.find((d) => d.id === delivery.deliveryMethod)?.label ??
         ""
       }`
