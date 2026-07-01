@@ -14,15 +14,8 @@ const router = express.Router();
 // ALL cart routes require authentication
 router.use(protect);
 
-router
-  .route("/")
-  .get(getAllCart)
-  .post(addCartItem)
-  .delete(clearAllCart);
+router.route("/").get(getAllCart).post(addCartItem).delete(clearAllCart);
 
-router
-  .route("/:id")
-  .patch(updateCartItem)
-  .delete(deleteCartItem);
+router.route("/:id").patch(updateCartItem).delete(deleteCartItem);
 
 export default router;
