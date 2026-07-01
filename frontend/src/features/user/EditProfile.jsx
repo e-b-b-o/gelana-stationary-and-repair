@@ -18,10 +18,6 @@ function EditProfile() {
   const [formData, setFormData] = useState({
     fullname: user?.fullname || "",
     phone: user?.phone || "",
-    country: user?.country || "",
-    city: user?.city || "",
-    address: user?.address || "",
-    postalCode: user?.postalCode || "",
   });
 
   // Password section state
@@ -120,12 +116,6 @@ function EditProfile() {
             <Input label="Full Name" name="fullname" value={formData.fullname} onChange={handleChange} placeholder="Gelana Techan" variant="form" size="md" />
             <Input label="Phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="+251 9XXXXXXXX" variant="form" size="md" />
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Input label="Country" name="country" value={formData.country} onChange={handleChange} placeholder="Ethiopia" variant="form" size="md" />
-            <Input label="City" name="city" value={formData.city} onChange={handleChange} placeholder="Addis Ababa" variant="form" size="md" />
-          </div>
-          <Input label="Address" name="address" value={formData.address} onChange={handleChange} placeholder="Red Avenue Street" variant="form" size="md" />
-          <Input label="Postal Code" name="postalCode" value={formData.postalCode} onChange={handleChange} placeholder="et-123245" variant="form" size="md" />
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Button variant="primary" size="md" type="submit" disabled={isProfileLoading} className="flex items-center justify-center gap-2">

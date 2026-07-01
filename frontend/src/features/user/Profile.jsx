@@ -3,6 +3,7 @@ import Button from "../../ui/Button";
 import { useAuth } from "../auth/AuthContext";
 import { useOrder } from "../order/OrderContext";
 import { useWishlist } from "../wishlist/WishlistContext";
+import AddressList from "./addresses/AddressList";
 import {
   ShoppingBagIcon,
   HeartIcon,
@@ -126,21 +127,13 @@ function Profile() {
         </div>
       </div>
 
-      {/* ADDRESS INFO */}
+      {/* ADDRESSES */}
       <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-6 sm:p-8">
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h3 className="text-lg font-bold text-primary">Address Information</h3>
-            <p className="text-muted text-sm mt-0.5">Used for deliveries and billing.</p>
-          </div>
-          <Button variant="outline" size="sm" to="/editprofile">Edit</Button>
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-primary">Addresses</h3>
+          <p className="text-muted text-sm mt-0.5">Manage your delivery and billing addresses.</p>
         </div>
-        <div className="grid sm:grid-cols-2 gap-6">
-          <InfoRow label="Country" value={user?.country} />
-          <InfoRow label="City" value={user?.city} />
-          <InfoRow label="Address" value={user?.address} />
-          <InfoRow label="Postal Code" value={user?.postalCode} />
-        </div>
+        <AddressList />
       </div>
 
       {/* RECENT BOOKINGS */}
