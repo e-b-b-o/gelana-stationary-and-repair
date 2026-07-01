@@ -7,6 +7,7 @@ import productImageRoutes from "./routes/productImageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import wishlistRoutes from "./routes/wishlistRoutes.js";
+import addressRoutes from "./routes/addressRoutes.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/api/products/:productId/images", productImageRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/wishlists", wishlistRoutes);
 app.use("/api/categories", categoriesRoutes);
+app.use("/api/addresses", addressRoutes);
 
 app.use(errorMiddleware);
 
